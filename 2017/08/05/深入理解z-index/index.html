@@ -7,25 +7,28 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | Zoey&#39;s Blog</title>
+  <title>深入理解z-index | Zoey&#39;s Blog</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="forsigner,前端,设计,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+    <meta name="keywords" content="CSS," />
   
 
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="定义利用z-index，可以改变元素相互覆盖的顺序。通常来讲，较高z-index值的元素覆盖较低z-index值的元素，这也称为堆叠或叠放。 属性值z-index：auto 默认值z-index：&amp;lt; integer &amp;gt; 整数值z-index：inherit 继承值 基本特性 支持负值 支持CSS3 animation动画 在CSS2.1时代，只对定位元素（relative/fixed/">
+<meta name="keywords" content="CSS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/07/26/hello-world/index.html">
+<meta property="og:title" content="深入理解z-index">
+<meta property="og:url" content="http://yoursite.com/2017/08/05/深入理解z-index/index.html">
 <meta property="og:site_name" content="Zoey&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="定义利用z-index，可以改变元素相互覆盖的顺序。通常来讲，较高z-index值的元素覆盖较低z-index值的元素，这也称为堆叠或叠放。 属性值z-index：auto 默认值z-index：&amp;lt; integer &amp;gt; 整数值z-index：inherit 继承值 基本特性 支持负值 支持CSS3 animation动画 在CSS2.1时代，只对定位元素（relative/fixed/">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-07-26T10:14:27.581Z">
+<meta property="og:image" content="http://yoursite.com/images/zorder.jpg">
+<meta property="og:updated_time" content="2017-10-21T10:49:59.181Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="深入理解z-index">
+<meta name="twitter:description" content="定义利用z-index，可以改变元素相互覆盖的顺序。通常来讲，较高z-index值的元素覆盖较低z-index值的元素，这也称为堆叠或叠放。 属性值z-index：auto 默认值z-index：&amp;lt; integer &amp;gt; 整数值z-index：inherit 继承值 基本特性 支持负值 支持CSS3 animation动画 在CSS2.1时代，只对定位元素（relative/fixed/">
+<meta name="twitter:image" content="http://yoursite.com/images/zorder.jpg">
 
   
 
@@ -182,20 +185,20 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#属性值"><span class="toc-text">属性值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本特性"><span class="toc-text">基本特性</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#层叠上下文-（stacking-context）"><span class="toc-text">层叠上下文 （stacking context）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#层叠规则（stacking-order）"><span class="toc-text">层叠规则（stacking order）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CSS3的层叠表现"><span class="toc-text">CSS3的层叠表现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-hello-world" class="article article-type-post" itemprop="blogPost">
+   <article id="post-深入理解z-index" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">Hello World</h1>
+    <h1 class="post-title">深入理解z-index</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2017.07.26</span>
+        <span>2017.08.05</span>
       </span>
 
       
@@ -211,7 +214,7 @@
       
         <span>
           <i class="icon-comment"></i>
-          <a href="http://www.forsigner.com/2017/07/26/hello-world/#disqus_thread"></a>
+          <a href="http://www.forsigner.com/2017/08/05/深入理解z-index/#disqus_thread"></a>
         </span>
       
 
@@ -230,15 +233,63 @@
 
   <div class="article-content">
     
-      <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+      <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>利用z-index，可以改变元素相互覆盖的顺序。通常来讲，较高z-index值的元素覆盖较低z-index值的元素，这也称为堆叠或叠放。</p>
+<h2 id="属性值"><a href="#属性值" class="headerlink" title="属性值"></a>属性值</h2><p>z-index：auto 默认值<br>z-index：&lt; integer &gt; 整数值<br>z-index：inherit 继承值</p>
+<h2 id="基本特性"><a href="#基本特性" class="headerlink" title="基本特性"></a>基本特性</h2><ol>
+<li>支持负值</li>
+<li>支持CSS3 animation动画</li>
+<li>在CSS2.1时代，只对定位元素（relative/fixed/absolute/sticky）起作用</li>
+</ol>
+<h1 id="层叠上下文-（stacking-context）"><a href="#层叠上下文-（stacking-context）" class="headerlink" title="层叠上下文 （stacking context）"></a>层叠上下文 （stacking context）</h1><p>一旦为一个定位元素元素指定了z-index值(不是auto)，该元素会建立自己的局部层叠上下文。特别注意的是，其子元素的 z-index 值只在父级层叠上下文中有意义。</p>
+<p><strong>注意</strong>：  </p>
+<ul>
+<li><p>auto值指当前层叠上下文与其父框的层次相同，这个框不会建立新的局部层叠上下文。z-index:auto与z-index:0的值相等，但<strong>z-index:0</strong>会建立新的局部层叠上下文。  </p>
+</li>
+<li><p>IE7-浏览器定位元素的z-index的默认值是0，所以IE7-浏览器的定位元素会自动生成层叠上下文。  </p>
+</li>
+<li><p>页面根元素天生具有层叠上下文。  </p>
+</li>
+</ul>
+<h1 id="层叠规则（stacking-order）"><a href="#层叠规则（stacking-order）" class="headerlink" title="层叠规则（stacking order）"></a>层叠规则（stacking order）</h1><p>1.定位元素的层叠规则<br>对于定位元素(position不是static的元素)来说，不设置z-index或z-index相同时，后面元素覆盖前面元素。  </p>
+<p>2.同一层叠上下文中的层叠规则<br>对于处于同一层叠上下文中的同一层次的元素来说，默认z-index较大值覆盖z-index较小值</p>
+<p><img src="/images/zorder.jpg" alt="image"></p>
+<h1 id="CSS3的层叠表现"><a href="#CSS3的层叠表现" class="headerlink" title="CSS3的层叠表现"></a>CSS3的层叠表现</h1><p>自CSS3起，规定文档中的层叠上下文由满足以下任意一个条件的元素形成：</p>
+<ol>
+<li><p>根元素 (HTML)；  </p>
+</li>
+<li><p>z-index 值不为 “auto”的 绝对/相对定位；</p>
+</li>
+<li><p>一个 z-index 值不为 “auto”的 flex 项目 (flex item)，即：父元素 display: flex|inline-flex；</p>
+</li>
+<li><p>opacity 属性值小于 1 的元素；</p>
+</li>
+<li><p>transform 属性值不为 “none”的元素；</p>
+</li>
+<li><p>mix-blend-mode 属性值不为 “normal”的元素；</p>
+</li>
+<li><p>filter值不为“none”的元素；</p>
+</li>
+<li><p>perspective值不为“none”的元素；</p>
+</li>
+<li><p>isolation 属性被设置为 “isolate”的元素；</p>
+</li>
+<li><p>position: fixed；</p>
+</li>
+<li><p>在 will-change 中指定了任意 CSS 属性；</p>
+</li>
+<li><p>-webkit-overflow-scrolling 属性被设置 “touch”的元素；</p>
+</li>
+</ol>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li><p>给一个 HTML 元素定位和 z-index 赋值创建一个层叠上下文，（opacity 值不为 1 的也是相同）。</p>
+</li>
+<li><p>层叠上下文可以包含在其他层叠上下文中，并且一起创建一个有层级的层叠上下文。</p>
+</li>
+<li><p>每个层叠上下文完全独立于它的兄弟元素：当处理层叠时只考虑子元素。</p>
+</li>
+<li><p>每个层叠上下文是自包含的：当元素的内容发生层叠后，整个该元素将会 在父层叠上下文中 按顺序进行层叠。</p>
+</li>
+</ul>
 
     
   </div>
@@ -269,10 +320,10 @@
 
    
   <div class="box-prev-next clearfix">
-    <a class="hide pull-left" href="/">
+    <a class="show pull-left" href="/2017/07/28/学习flex布局/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2017/07/28/学习flex布局/">
+    <a class="show pull-right" href="/2017/08/28/box-shadow属性探秘/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
@@ -397,7 +448,7 @@
   <script>
     var disqus_shortname = 'forsigner';
     
-    var disqus_url = 'http://yoursite.com/2017/07/26/hello-world/';
+    var disqus_url = 'http://yoursite.com/2017/08/05/深入理解z-index/';
     
     (function(){
       var dsq = document.createElement('script');

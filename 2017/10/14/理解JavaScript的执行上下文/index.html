@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>理解JavaScript的执行上下文 | Zoey&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="javascript," />
+  
+
+  <meta name="description" content="执行上下文（Execution Context）在JavaScript中有三种代码运行环境：  全局环境Global CodeJavaScript代码开始运行的默认环境 函数环境Function Code代码进入一个JavaScript函数 Eval Code使用eval()执行代码    为了表示不同的运行环境，JavaScript中有一个执行上下文（Execution context，EC）的">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解JavaScript的执行上下文">
+<meta property="og:url" content="http://yoursite.com/2017/10/14/理解JavaScript的执行上下文/index.html">
+<meta property="og:site_name" content="Zoey&#39;s Blog">
+<meta property="og:description" content="执行上下文（Execution Context）在JavaScript中有三种代码运行环境：  全局环境Global CodeJavaScript代码开始运行的默认环境 函数环境Function Code代码进入一个JavaScript函数 Eval Code使用eval()执行代码    为了表示不同的运行环境，JavaScript中有一个执行上下文（Execution context，EC）的">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-21T10:52:18.989Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解JavaScript的执行上下文">
+<meta name="twitter:description" content="执行上下文（Execution Context）在JavaScript中有三种代码运行环境：  全局环境Global CodeJavaScript代码开始运行的默认环境 函数环境Function Code代码进入一个JavaScript函数 Eval Code使用eval()执行代码    为了表示不同的运行环境，JavaScript中有一个执行上下文（Execution context，EC）的">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#执行上下文（Execution-Context）"><span class="toc-text">执行上下文（Execution Context）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#变量对象（Variable-object）"><span class="toc-text">变量对象（Variable object）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#活动对象（Activation-object）"><span class="toc-text">活动对象（Activation object）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JS解析器做了什么"><span class="toc-text">JS解析器做了什么</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#举个栗子"><span class="toc-text">举个栗子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#分析流程如下"><span class="toc-text">分析流程如下:</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-理解JavaScript的执行上下文" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">理解JavaScript的执行上下文</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.10.14</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Zoey</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.forsigner.com/2017/10/14/理解JavaScript的执行上下文/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="执行上下文（Execution-Context）"><a href="#执行上下文（Execution-Context）" class="headerlink" title="执行上下文（Execution Context）"></a>执行上下文（Execution Context）</h1><p>在JavaScript中有三种代码运行环境：</p>
+<ul>
+<li>全局环境Global Code<br>JavaScript代码开始运行的默认环境</li>
+<li>函数环境Function Code<br>代码进入一个JavaScript函数</li>
+<li>Eval Code<br>使用eval()执行代码  </li>
+</ul>
+<p>为了表示不同的运行环境，JavaScript中有一个执行上下文（Execution context，EC）的概念。也就是说，当JavaScript代码执行的时候，会进入不同的执行上下文，这些执行上下文就构成了一个执行上下文栈（Execution context stack，ECS）。</p>
+<h1 id="变量对象（Variable-object）"><a href="#变量对象（Variable-object）" class="headerlink" title="变量对象（Variable object）"></a>变量对象（Variable object）</h1><p>我们知道 变量和执行上下文相关 那么它就应该知道数据储存在哪里以及如何访问这些数据，这种机制被称为变量对象（Variable Object）简称VO。<br>处理执行上下文代码分为两个阶段:<br>①进入执行上下文<br>②执行代码<br>当进入执行上下文时（代码执行前），变量对象VO 就会被下列属性填充：  </p>
+<ol>
+<li>函数的所有形参（如果是在函数执行上下文中）<br>每个形参都对应变量对象中的一个属性，该属性由形参名和对应的实参值构成，如果没有传递实参，那么该属性值就为 undefined</li>
+<li>所有函数声明（FunctionDeclaration, FD）<br>每个函数声明都对应变量对象中的一个属性，这个属性由一个函数对象的名称和值构成，如果变量对象中存在相同的属性名，则完全替换该属性。</li>
+<li>所有变量声明（var, VariableDeclaration）<br>每个变量声明都对应变量对象中的一个属性，该属性的键/值是变量名和 undefined，如果变量名与已经声明的形参或函数相同，则变量声明不会干扰已经存在的这类属性。</li>
+</ol>
+<h1 id="活动对象（Activation-object）"><a href="#活动对象（Activation-object）" class="headerlink" title="活动对象（Activation object）"></a>活动对象（Activation object）</h1><p>只有全局上下文的变量对象允许通过VO的属性名称间接访问；在函数执行上下文中，VO是不能直接访问的，此时由激活对象(简称AO)扮演VO的角色。激活对象 是在进入函数上下文时刻被创建的，它通过函数的arguments属性初始化。  </p>
+<p>Arguments Objects 是函数上下文里的激活对象AO中的内部对象，它包括下列属性：</p>
+<ol>
+<li>callee：指向当前函数的引用</li>
+<li>length： 真正传递的参数的个数</li>
+<li>properties-indexes：就是函数的参数值(按参数列表从左到右排列)  </li>
+</ol>
+<p>对于VO和AO的关系可以理解为，VO在不同的Execution Context中会有不同的表现：当在Global Execution Context中，可以直接使用VO；但是，在函数Execution Context中，AO就会被创建。</p>
+<h1 id="JS解析器做了什么"><a href="#JS解析器做了什么" class="headerlink" title="JS解析器做了什么"></a>JS解析器做了什么</h1><p>当一段JavaScript代码执行的时候，JavaScript解释器会创建执行上下文，其实这里会有两个阶段：</p>
+<p><strong>1.创建阶段</strong>（进入执行上下文）</p>
+<ul>
+<li>创建作用域链Scope chain</li>
+<li>创建VO/AO（variables, functions and arguments）</li>
+<li>设置this的值  </li>
+</ul>
+<p><strong>2.激活阶段</strong>（执行代码）<br>设置变量的值、函数的引用，然后解释/执行代码。  </p>
+<p>对于”创建VO/AO”这一步，JavaScript解释器主要做了下面的事情：  </p>
+<ul>
+<li>根据函数的参数，创建并初始化参数对象</li>
+</ul>
+<ul>
+<li><p>扫描函数内部代码，查找函数声明</p>
+<ul>
+<li>对于所有找到的函数声明，将函数名和函数引用存入VO/AO中</li>
+<li><strong>如果VO/AO中已经有同名的函数，那么就进行覆盖</strong>   </li>
+</ul>
+</li>
+<li><p>扫描函数内部代码，查找变量声明</p>
+<ul>
+<li>对于所有找到的变量声明，将变量名存入VO/AO中，并初始化为”undefined”</li>
+<li>如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性</li>
+</ul>
+</li>
+</ul>
+<h1 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h1><p>理解概念很枯燥，我们来分析实例。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">console.log(a);</div><div class="line">var a = 1;</div><div class="line">console.log(a);</div><div class="line">function a()&#123;alert(2)&#125;</div><div class="line">console.log(a);</div><div class="line">var a = 3;</div><div class="line">console.log(a);</div><div class="line">function a() &#123;alert(4);&#125;</div><div class="line">console.log(a);</div></pre></td></tr></table></figure>
+<h3 id="分析流程如下"><a href="#分析流程如下" class="headerlink" title="分析流程如下:"></a>分析流程如下:</h3><p><strong>进入执行上下文（创建阶段）填充vo对象</strong>   </p>
+<ol>
+<li>第二行有var定义的变量a，将其保存为a=undefined;</li>
+<li>第4行有function声明和第二行的a同名此时由于函数的等级高于变量，于是就覆盖变量a，此时a= function a (){ alert(2); }</li>
+<li>第六行又发现一个var定义的变量，名称与第四行的函数相同，但等级低，故a= function a (){ alert(2); }不变。</li>
+<li>同理，由于第八行后定义，又为同一等级的函数，所以a= function a (){ alert(4); }</li>
+<li><p>浏览器解析完成<br>此时的<br>vo= {<br>a:<br>}</p>
+<p><strong>执行代码（激活阶段）</strong></p>
+</li>
+<li>第一行 a应该是打印function a() {alert(4);}</li>
+<li>第二行表达式修改了a的值，使其为1，所以第三行输出a=1</li>
+<li>第四行定义了一个函数，但没有执行，所以第五行输出还为1</li>
+<li>第六行表达式又一次更改了a的值，现在a=3，此时的a为一个数字，第七行输出3</li>
+<li>同理，第八行没有做更改，第九行还是输出3</li>
+</ol>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/10/02/学习javascript数据结构与算法/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/10/18/HTTP1-0到HTTP2-0的演化/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'http://yoursite.com/2017/10/14/理解JavaScript的执行上下文/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>学习javascript数据结构与算法 | Zoey&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="javascript," />
+  
+
+  <meta name="description" content="二叉树二叉树的性质 性质1：在二叉树中第 i 层的结点数最多为2^(i-1)（i ≥ 1） 性质2：高度为k的二叉树其结点总数最多为2^k－1（ k ≥ 1） 性质3：对任意的非空二叉树 T ，如果叶结点的个数为 n0，而其度为 2 的结点数为 n2，则：n0 = n2 + 1     完全二叉树深度为k的，有n个结点的二叉树，当且仅当其每个结点都与深度为k的满二叉树中编号从1至n的结点一一对应，">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习javascript数据结构与算法">
+<meta property="og:url" content="http://yoursite.com/2017/10/02/学习javascript数据结构与算法/index.html">
+<meta property="og:site_name" content="Zoey&#39;s Blog">
+<meta property="og:description" content="二叉树二叉树的性质 性质1：在二叉树中第 i 层的结点数最多为2^(i-1)（i ≥ 1） 性质2：高度为k的二叉树其结点总数最多为2^k－1（ k ≥ 1） 性质3：对任意的非空二叉树 T ，如果叶结点的个数为 n0，而其度为 2 的结点数为 n2，则：n0 = n2 + 1     完全二叉树深度为k的，有n个结点的二叉树，当且仅当其每个结点都与深度为k的满二叉树中编号从1至n的结点一一对应，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-21T10:44:44.996Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="学习javascript数据结构与算法">
+<meta name="twitter:description" content="二叉树二叉树的性质 性质1：在二叉树中第 i 层的结点数最多为2^(i-1)（i ≥ 1） 性质2：高度为k的二叉树其结点总数最多为2^k－1（ k ≥ 1） 性质3：对任意的非空二叉树 T ，如果叶结点的个数为 n0，而其度为 2 的结点数为 n2，则：n0 = n2 + 1     完全二叉树深度为k的，有n个结点的二叉树，当且仅当其每个结点都与深度为k的满二叉树中编号从1至n的结点一一对应，">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#二叉树"><span class="toc-text">二叉树</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#二叉树的性质"><span class="toc-text">二叉树的性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#完全二叉树"><span class="toc-text">完全二叉树</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#javascript数组方法"><span class="toc-text">javascript数组方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#链表"><span class="toc-text">链表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#垃圾回收"><span class="toc-text">垃圾回收</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#哈希表"><span class="toc-text">哈希表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#处理冲突"><span class="toc-text">处理冲突</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JS排序算法"><span class="toc-text">JS排序算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#冒泡排序"><span class="toc-text">冒泡排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#选择排序"><span class="toc-text">选择排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插入排序"><span class="toc-text">插入排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归并排序"><span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#快速排序"><span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#堆排序"><span class="toc-text">堆排序</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-学习javascript数据结构与算法" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">学习javascript数据结构与算法</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.10.02</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Zoey</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.forsigner.com/2017/10/02/学习javascript数据结构与算法/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h1><h2 id="二叉树的性质"><a href="#二叉树的性质" class="headerlink" title="二叉树的性质"></a>二叉树的性质</h2><ul>
+<li>性质1：在二叉树中第 i 层的结点数最多为2^(i-1)（i ≥ 1）</li>
+<li>性质2：高度为k的二叉树其结点总数最多为2^k－1（ k ≥ 1）</li>
+<li>性质3：对任意的非空二叉树 T ，如果叶结点的个数为 n0，而其度为 2 的结点数为 n2，则：n0 = n2 + 1   </li>
+</ul>
+<h2 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h2><p>深度为k的，有n个结点的二叉树，当且仅当其每个结点都与深度为k的满二叉树中编号从1至n的结点一一对应，称之为完全二叉树。（除最后一层外，每一层上的节点数均达到最大值；在最后一层上只缺少右边的若干结点）</p>
+<ul>
+<li>性质4：具有 n 个结点的完全二叉树的深度为 log2n + 1  </li>
+</ul>
+<p>注意：仅有前序和后序遍历，不能确定一个二叉树，必须有中序遍历的结果</p>
+<h1 id="javascript数组方法"><a href="#javascript数组方法" class="headerlink" title="javascript数组方法"></a>javascript数组方法</h1><table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>concat</td>
+<td>连接2个或多个数组，并返回结果</td>
+</tr>
+<tr>
+<td>every</td>
+<td>对每项运行给定函数，全都true则返回true</td>
+</tr>
+<tr>
+<td>some</td>
+<td>对每项运行给定函数，存在true则返回true</td>
+</tr>
+<tr>
+<td>filter</td>
+<td>对每项运行给定函数，返回由true项组成的数组</td>
+</tr>
+<tr>
+<td>forEach</td>
+<td>对每项运行给定函数，无返回值</td>
+</tr>
+<tr>
+<td>map</td>
+<td>对每项运行给定函数，返回每次函数调用的结果组成的数组</td>
+</tr>
+<tr>
+<td>join</td>
+<td>将所有数组元素连接成一个字符串</td>
+</tr>
+<tr>
+<td>indexOf</td>
+<td>返回第一个与给定参数相等的数组元素索引，没有则返回-1</td>
+</tr>
+<tr>
+<td>lastIndexOf</td>
+<td>返回最后一个与给定参数相等的数组元素索引</td>
+</tr>
+<tr>
+<td>reverse</td>
+<td>颠倒数组中元素的顺序</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>按照字母顺序对数组排序，支持传入指定排序方法的函数作为参数</td>
+</tr>
+<tr>
+<td>slice</td>
+<td>传入索引值，返回由索引范围内的元素组成的新数组。</td>
+</tr>
+<tr>
+<td>toString</td>
+<td>将数组作为字符串返回，该字符串由数组中的每个元素的toString()返回值经调用join()方法连接（由逗号隔开）组成。</td>
+</tr>
+<tr>
+<td>valueOf</td>
+<td>返回值为该对象的原始值。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><p> 链表中的元素在内存中不是连续放置的，相对于传统的数组，链表的一个好处是当添加或移除元素时不需要移动其他元素。  </p>
+<h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a>垃圾回收</h2><p><strong>引用计数垃圾收集</strong><br>此算法简化定义为“对象有没有其他对象引用到它”。如果没有引用指向该对象（零引用），对象将被垃圾回收机制回收。<br>该算法有个限制：无法处理循环引用。  </p>
+<p><strong>标记-清除算法</strong><br>这个算法假定设置一个叫做根（root）的对象（在Javascript里，根是全局对象）。函数调用返回之后，两个对象从全局对象出发无法获取，他们将会被垃圾回收器回收。  </p>
+<h1 id="哈希表"><a href="#哈希表" class="headerlink" title="哈希表"></a>哈希表</h1><h2 id="处理冲突"><a href="#处理冲突" class="headerlink" title="处理冲突"></a>处理冲突</h2><p>方法：分离链接（链地址法） 、线性探测、 双散列法<br><strong>线性探测法</strong>：当想向哈希表中某一位置插入新元素时，如果索引为index的位置被占据了，就尝试index+1的位置，再次冲突则依此类推。</p>
+<p><strong>链地址法</strong>：为哈希表的每一个位置创建一个链表并将元素存储在里面，将哈希地址相同但数据不同的元素存放在一个链表中。  </p>
+<h1 id="JS排序算法"><a href="#JS排序算法" class="headerlink" title="JS排序算法"></a>JS排序算法</h1><h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>冒泡排序需要两层嵌套循环，外层循环从数组第一位迭代到最后一位，它控制了在数组中经过多少轮排序（应该是数组中每项都经过一轮，轮数和数组长度一致）。然后，内循环将从第一位迭代至未排序的倒数第二位，进行当前项和下一项的比较，如果当前项比下一项大，则交换它们。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">function bubbleSort() &#123;</div><div class="line">    var length = array.length;</div><div class="line">    for (var i = 0; i &lt; length; i++)&#123;</div><div class="line">        for (var j = 0; j &lt; length-1-i; j++)&#123;</div><div class="line">            if (array[j] &gt; array[j+1])&#123;</div><div class="line">                swap(j,j+1);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">//元素交换swap函数</div><div class="line">function swap(index1,index2)&#123;</div><div class="line">    var aux = array[index1];</div><div class="line">    array[index1] = array[index2];</div><div class="line">    array[index2] = aux;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>冒泡排序是最容易实现的排序, 最坏的情况是每次都需要交换, 共需遍历并交换将近n²/2次, 时间复杂度为O(n²). 最佳的情况是内循环遍历一次后发现排序是对的从而退出循环, 时间复杂度为O(n). 平均来讲, 时间复杂度为O(n²)。   </p>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>外循环迭代数组并控制迭代轮次（数组的第n个值——下一个最小值），假设开始时首位置的值最小，内循环将首位置的值和当前j位置的值比较，若比j大则将j设为最小位置，当内循环结束，将得出数组第n小的值。外循环判断，如果该最小值和原最小值不同，则交换其值。   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function selectSort() &#123;</div><div class="line">    var length = array.length,</div><div class="line">    indexMin;</div><div class="line">    for (var i = 0; i &lt; length-1 ;i++)&#123;</div><div class="line">        indexMin = i;</div><div class="line">        for(var j = i; j &lt; length; j++)&#123;</div><div class="line">            if(array[indexMin] &gt; array[j])&#123;</div><div class="line">                indexMin = j;//记住最小数的下标</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        if (i !== indexMin)&#123;</div><div class="line">            swap(i,indexMin);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>无论是哪种情况, 哪怕原数组已排序完成,选择排序也将花费将近n²/2次，时间复杂度O(n²)<br>很慢，且不稳定。但并不耗费额外的内存空间。    </p>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>算法从第二个位置（索引1）开始循环，将待比较元素下标记为i-1，当前元素为current，当待比较元素下标index大于等于0且 待比较元素大于当前元素，则将其值移到当前位置上，游标-1，最终将当前元素插入预留空位。   </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function insertSort(array) &#123;</div><div class="line">    var length = array.length,</div><div class="line">    index,current;</div><div class="line">    for(var i = 1; i &lt; length; i++)&#123;</div><div class="line">        index = i-1;       //待比较元素下标</div><div class="line">        current = array[i];    //当前元素</div><div class="line">        while(index &gt;= 0 &amp;&amp; array[index] &gt; current)&#123;</div><div class="line">            array[index+1] = array[index];</div><div class="line">            index --;</div><div class="line">        &#125;</div><div class="line">        array[index+1] = current; //将当前元素插入预留空位</div><div class="line">    &#125;</div><div class="line">    return array;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function mergeSort(array)&#123;</div><div class="line">    var length = array.length;</div><div class="line">    if(length == 1)&#123;</div><div class="line">        return array;</div><div class="line">    &#125;</div><div class="line">    var mid = Math.floor(length/2),</div><div class="line">    left = array.slice(0,mid),</div><div class="line">    right = array.slice(mid,length);</div><div class="line">    return merge(mergeSort(left),mergeSort(right));</div><div class="line">&#125;</div><div class="line"></div><div class="line">function merge(left,right) &#123;</div><div class="line">    var result = [];</div><div class="line">    while(left.length &amp;&amp; right.length) &#123;</div><div class="line">        var item = left[0] &lt;= right[0] ? left.shift() : right.shift();</div><div class="line">        result.push(item);</div><div class="line">    &#125;</div><div class="line">    return result.concat(left.length ? left : right);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其综合时间复杂度都为O(nlogn).<br>归并排序多次递归过程中拆分的子数组需要保存在内存空间, 其空间复杂度为O(n).     </p>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>快速排序是一种分而治之的算法，它是冒泡排序的改进，基本思想是通过一趟排序将待排序列分割成独立的两部分，其中一部分的值都要比另一部分的值小，再分别对这两部分继续进行排序，直到整个序列有序。<br>快速排序的步骤是：首先从序列中选择一个基准元素，假设为第一个元素，将列表分成两部分，将所有小于基准值的元素放在基准值前面，所有大于基准值的元素放在基准值后面，再分别对这两部分重复上面的步骤即可。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">function quickSort(array,left,right) &#123;</div><div class="line">    var index,</div><div class="line">        left = (typeof left == &apos;number&apos;) ? left : 0,</div><div class="line">        right = (typeof right == &apos;number&apos;) ? right : array.length-1;</div><div class="line">    if (array.length &gt; 1) &#123;</div><div class="line">        index = partition(array,left,right); //子数组划分基准值</div><div class="line">        if (left &lt; index-1) &#123;</div><div class="line">            quickSort(array,left,index-1);</div><div class="line">        &#125;</div><div class="line">        if (index &lt; right) &#123;</div><div class="line">            quickSort(array,index,right);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">function partition(array,left,right) &#123;</div><div class="line">    var pivot = array[Math.floor(left + right) / 2],</div><div class="line">    i = left,</div><div class="line">    j = right;</div><div class="line">    while (i &lt;= j) &#123;</div><div class="line">        while (array[i] &lt; pivot) &#123;</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        while (array[j] &gt; pivot) &#123;</div><div class="line">            j--;</div><div class="line">        &#125;</div><div class="line">        if (i &lt;= j)&#123;</div><div class="line">            swapQ(array,i,j);</div><div class="line">            i++;</div><div class="line">            j--;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return i;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>快速排序排序效率非常高. 虽然它运行最糟糕时将达到O(n²)的时间复杂度, 但平均来看, 时间复杂度为O(nlogn)。<br>Chrome的v8引擎为了高效排序, 在排序数据超过了10条时, 便会采用快速排序. 对于10条及以下的数据采用的便是插入排序。</p>
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>堆分为大根堆和小根堆，大根堆的要求是每个节点的值都不大于其父节点的值，即 最大的值一定在堆顶，小根堆与之相反。因此我们可使用大根堆进行升序排序， 使用小根堆进行降序排序。  可以将这里的堆看作完全二叉树， k(i) 相当于是二叉树的非叶子节点， k(2i) 则是左子节点， k(2i+1)是右子节点。<br>算法的基本思想(以大根堆为例):  </p>
+<ul>
+<li>先将初始序列K[1..n]建成一个大根堆, 此堆为初始的无序区.</li>
+<li>再将关键字最大的记录K1 (即堆顶)和无序区的最后一个记录K[n]交换, 由此得到新的无序区K[1..n-1]和有序区K[n], 且满足K[1..n-1].keys≤K[n].key</li>
+<li>交换K1 和 K[n] 后, 堆顶可能违反堆性质, 因此需将K[1..n-1]调整为堆. 然后重复步骤2, 直到无序区只有一个元素时停止。  </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">function heapAdjust(array,i,length) &#123; //堆调整</div><div class="line">    var left = 2*i + 1,</div><div class="line">        right = 2*i + 2,</div><div class="line">        largest = i;</div><div class="line">        if (left &lt; length &amp;&amp; array[left] &gt; array[largest]) &#123;</div><div class="line">            largest = left;</div><div class="line">        &#125;</div><div class="line">        if (right &lt;length &amp;&amp; array[right] &gt; array[largest]) &#123;</div><div class="line">            largest = right;</div><div class="line">        &#125;</div><div class="line">        if (largest != i) &#123;</div><div class="line">            swap(i,largest,array);</div><div class="line">            headAdjust(array,largest,length);</div><div class="line">        &#125;</div><div class="line">&#125;</div><div class="line">function heapSort(array) &#123;</div><div class="line">    //建立大顶堆</div><div class="line">    var length = array.length;</div><div class="line">    for (var i = length&lt;&lt;1; i &gt;= 0; i--) &#123;</div><div class="line">        heapAdjust(array,i,length);</div><div class="line">    &#125;</div><div class="line">    //交换首（无序区最大）尾元素，将前面的元素重新调整为大顶堆</div><div class="line">    for (var i = length-1; i &gt; 0; i--) &#123;</div><div class="line">        swap(i,0,array);</div><div class="line">        heapAdjust(array,0,--length); //注意首尾交换后调整的范围是--length</div><div class="line">    &#125;</div><div class="line">    return array;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>①建立堆的过程, 从length/2 一直处理到0, 时间复杂度为O(n);<br>②调整堆的过程是沿着堆的父子节点进行调整, 执行次数为堆的深度, 时间复杂度为O(lgn);<br>③堆排序的过程由n次第②步完成, 时间复杂度为O(nlgn).<br>堆排序适用于数据规模较大的序列，是不稳定排序。</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/28/box-shadow属性探秘/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/10/14/理解JavaScript的执行上下文/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'http://yoursite.com/2017/10/02/学习javascript数据结构与算法/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

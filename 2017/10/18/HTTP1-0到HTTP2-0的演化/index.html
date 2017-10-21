@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>HTTP1.0到HTTP2.0的演化 | Zoey&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="forsigner,前端,设计,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+  
+
+  <meta name="description" content="HTTP历史全称：超文本传输协议(HyperText Transfer Protocol) 早在HTTP建立之初，主要就是为了将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器。也是说对于前端来说，我们所写的HTML页面将要放在我们的web服务器上，用户端通过浏览器访问url地址来获取网页的显示内容，但是到了WEB2.0以来，我们的页面变得复杂，不仅仅单纯的是一些简单的文字和图片，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP1.0到HTTP2.0的演化">
+<meta property="og:url" content="http://yoursite.com/2017/10/18/HTTP1-0到HTTP2-0的演化/index.html">
+<meta property="og:site_name" content="Zoey&#39;s Blog">
+<meta property="og:description" content="HTTP历史全称：超文本传输协议(HyperText Transfer Protocol) 早在HTTP建立之初，主要就是为了将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器。也是说对于前端来说，我们所写的HTML页面将要放在我们的web服务器上，用户端通过浏览器访问url地址来获取网页的显示内容，但是到了WEB2.0以来，我们的页面变得复杂，不仅仅单纯的是一些简单的文字和图片，">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/images/timeline.png">
+<meta property="og:image" content="http://yoursite.com/images/duolufuyong.png">
+<meta property="og:updated_time" content="2017-10-21T11:02:43.677Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP1.0到HTTP2.0的演化">
+<meta name="twitter:description" content="HTTP历史全称：超文本传输协议(HyperText Transfer Protocol) 早在HTTP建立之初，主要就是为了将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器。也是说对于前端来说，我们所写的HTML页面将要放在我们的web服务器上，用户端通过浏览器访问url地址来获取网页的显示内容，但是到了WEB2.0以来，我们的页面变得复杂，不仅仅单纯的是一些简单的文字和图片，">
+<meta name="twitter:image" content="http://yoursite.com/images/timeline.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP历史"><span class="toc-text">HTTP历史</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP1-0"><span class="toc-text">HTTP1.0</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-1-1"><span class="toc-text">HTTP/1.1</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP1-0和1-1现存的一些问题"><span class="toc-text">HTTP1.0和1.1现存的一些问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTPS应声而出"><span class="toc-text">HTTPS应声而出</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTPS与HTTP的一些区别"><span class="toc-text">HTTPS与HTTP的一些区别</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SPDY-amp-HTTP-2"><span class="toc-text">SPDY & HTTP/2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-2-0-新特性"><span class="toc-text">HTTP/2.0 新特性</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-HTTP1-0到HTTP2-0的演化" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">HTTP1.0到HTTP2.0的演化</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.10.18</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Zoey</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.forsigner.com/2017/10/18/HTTP1-0到HTTP2-0的演化/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="HTTP历史"><a href="#HTTP历史" class="headerlink" title="HTTP历史"></a>HTTP历史</h1><p>全称：超文本传输协议(HyperText Transfer Protocol) 早在HTTP建立之初，主要就是为了将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览器。也是说对于前端来说，我们所写的HTML页面将要放在我们的web服务器上，用户端通过浏览器访问url地址来获取网页的显示内容，但是到了WEB2.0以来，我们的页面变得复杂，不仅仅单纯的是一些简单的文字和图片，同时我们的HTML页面有了CSS，Javascript，来丰富我们的页面展示，随着ajax的出现，我们又多了一种向服务器端获取数据的方法，这些其实都是基于HTTP协议的。</p>
+<p>自从1991年Tim Berners-Lee提出HTTP协议的设想到现在已经20多年过去了，在这20多年中Web的发展也是日新月异。为了满足不同时代Web的需求，HTTP协议的更新迭代经历了HTTP0.9、HTTP/1.0、HTTP/1.1、SPDY、HTTP/2几个版本。接下来就这几个版本的HTTP进行简要介绍。 </p>
+<p><img src="/images/timeline.png" alt="image"></p>
+<h1 id="HTTP1-0"><a href="#HTTP1-0" class="headerlink" title="HTTP1.0"></a>HTTP1.0</h1><p>1991-1995年，随着Web浏览器的兴起，人们对Web页面的需求越来越多，最典型的就是人们不再满足于仅包含文本和超链接的超文本文档，而是需要能展现文字、样式、图片等多种媒体类型的数据。因此HTTP/0.9这种简单的传输协议很快就难以为继。1996年，HTTP-WG发布了了RFC1945，阐述了HTTP/1.0的主要特性：</p>
+<ul>
+<li>请求和响应有多个头部，请求行包含了协议版本</li>
+<li>包含了响应行，主要包括协议版本和响应状态</li>
+<li>响应头中包含了Content-Type，可以支持多种类型的影响内容</li>
+<li>每个请求响应结束后，连接即关闭</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/* 请求 */</div><div class="line">GET /rfc/rfc1945.txt HTTP/1.0</div><div class="line">User-Agent: CERN-LineMode/2.15 libwww/2.17b3 Accept: */* /* 响应 */</div><div class="line">HTTP/1.0 200 OK</div><div class="line">ontent-Type: text/plain</div><div class="line">Content-Length: 137582</div><div class="line">Expires: Thu, 01 Dec 1997 16:00:00 GMT Last-Modified: Wed, 1 May 1996 12:45:26 GMT Server: Apache 0.84</div></pre></td></tr></table></figure>
+<h1 id="HTTP-1-1"><a href="#HTTP-1-1" class="headerlink" title="HTTP/1.1"></a>HTTP/1.1</h1><p>1997年定义HTTP/1.1的RFC2068正式发布，随后在1999年发布的RFC2616中集合了对HTTP/1.1的改进和更新。总的来讲，HTTP/1.1主要明确了之前HTTP/1.0中存在歧义的点，并在此基础上增加了许多新特性：</p>
+<ul>
+<li>持久传输</li>
+<li>分块编码传输</li>
+<li>字节范围请求</li>
+<li>传输编码</li>
+<li>增强的缓存机制</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Connection_management_in_HTTP_1.x#HTTP_pipelining/" target="_blank" rel="external">管道化请求</a></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">// 请求1</div><div class="line">GET /index.html HTTP/1.1</div><div class="line">Host: website.org</div><div class="line">User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_4)... (snip)  </div><div class="line">// 响应1</div><div class="line">HTTP/1.1 200 OK</div><div class="line">Server: nginx/1.0.11</div><div class="line">Accept-Ranges: bytes // 如果不为none，代表server支持范围请求</div><div class="line">Connection: keep-alive // 持久传输，本次请求响应结束后不关闭连接</div><div class="line">Content-Type: text/html; charset=utf-8</div><div class="line">Cache-Control: max-age=0, no-cache // 缓存控制</div><div class="line">Transfer-Encoding: chunked // 传输编码  </div><div class="line"></div><div class="line">100 // 当前响应块大小（256Bytes）</div><div class="line">&lt;!doctype html&gt; ... (snip) // 响应内容  </div><div class="line"></div><div class="line">100 // 另一块（256Bytes）</div><div class="line">... (snip) // 响应内容  </div><div class="line"></div><div class="line">0 // 响应分块结束  </div><div class="line"></div><div class="line">// 请求2</div><div class="line">GET /favicon.ico HTTP/1.1 // 上次请求未关闭连接，本次重用该连接</div><div class="line">Range: bytes=0-1023 // 请求字节范围</div><div class="line">Connection: close // 告知服务器本次请求响应后关闭连接  </div><div class="line">// 响应2</div><div class="line">HTTP/1.1 200 OK // 第二次请求的响应行</div><div class="line">Content-Range: bytes 0-1023/146515 // 响应字节范围//整体字节数</div><div class="line">Connection: close // 告知浏览器响应完成或关闭该连接</div></pre></td></tr></table></figure>
+<h1 id="HTTP1-0和1-1现存的一些问题"><a href="#HTTP1-0和1-1现存的一些问题" class="headerlink" title="HTTP1.0和1.1现存的一些问题"></a>HTTP1.0和1.1现存的一些问题</h1><ol>
+<li>上面提到过的，HTTP1.x在传输数据时，每次都需要重新建立连接，无疑增加了大量的延迟时间，特别是在移动端更为突出。</li>
+<li>HTTP1.x在传输数据时，所有传输的内容都是明文，客户端和服务器端都无法验证对方的身份，这在一定程度上无法保证数据的安全性。</li>
+<li>HTTP1.x在使用时，header里携带的内容过大，在一定程度上增加了传输的成本，并且每次请求header基本不怎么变化，尤其在移动端增加用户流量。</li>
+<li>虽然HTTP1.x支持了keep-alive，来弥补多次创建连接产生的延迟，但是keep-alive使用多了同样会给服务端带来大量的性能压力，并且对于单个文件被不断请求的服务(例如图片存放网站)，keep-alive可能会极大的影响性能，因为它在文件被请求之后还保持了不必要的连接很长时间。</li>
+</ol>
+<h1 id="HTTPS应声而出"><a href="#HTTPS应声而出" class="headerlink" title="HTTPS应声而出"></a>HTTPS应声而出</h1><p>为了解决以上问题，网景在1994年创建了HTTPS，并应用在网景导航者浏览器中。 最初，HTTPS是与SSL一起使用的；在SSL逐渐演变到TLS时（其实两个是一个东西，只是名字不同而已），最新的HTTPS也由在2000年五月公布的RFC 2818正式确定下来。简单来说，HTTPS就是安全版的HTTP，并且由于当今时代对安全性要求更高，chrome和firefox都大力支持网站使用HTTPS，苹果也在ios 10系统中强制app使用HTTPS来传输数据，由此可见HTTPS势在必行。</p>
+<h2 id="HTTPS与HTTP的一些区别"><a href="#HTTPS与HTTP的一些区别" class="headerlink" title="HTTPS与HTTP的一些区别"></a>HTTPS与HTTP的一些区别</h2><ul>
+<li>HTTPS协议需要到CA申请证书，一般免费证书很少，需要交费。</li>
+<li>HTTP是超文本传输协议，信息是明文传输，HTTPS 则是具有安全性的SSL加密传输协议。</li>
+<li>HTTP和HTTPS使用的是完全不同的连接方式，用的端口也不一样，前者是80，后者是443。</li>
+<li>HTTPS的连接很简单，HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比http协议安全。<h1 id="SPDY-amp-HTTP-2"><a href="#SPDY-amp-HTTP-2" class="headerlink" title="SPDY &amp; HTTP/2"></a>SPDY &amp; HTTP/2</h1></li>
+</ul>
+<p>从诞生之日到今天，HTTP/1.1以其顽强的生命力伴随一代人见证了Web的繁荣发展。但面对网络中越来越多的请求、网页规模的膨胀，HTTP/1.1逐渐开始表现得力不从心，主要表现在以下几个问题上：</p>
+<ul>
+<li>头阻塞：HTTP/1.1中只有该请求响应后才能重用当前连接发送下一次请求，即使管道化技术使得可以在本次响应完成之前发送下次请求，但响应依然严格按照顺序返回，也就是如果前一个响应被阻塞，后边的响应将不会到来。</li>
+<li>重复的未压缩头数据传输：自HTTP/1.0以后，HTTP请求中通常带有大量以ASCII编码的头部，这些头部通常大部分都不会变化，每次请求都会携带，这给本就拥挤不堪的网络带来了更多的压力（尤其是像User Agent、Cookie这种值比较长的头部字段）。</li>
+</ul>
+<p>2009年，Google提出了一项实验性的协议SPDY（读音同speedy），旨在开发者不修改当前网站实现的前提下，提高页面加载速度。SPDY提出后，Chrome、Firefox、Opera等主流浏览器先后给出了实现，很多大型网站（如Google、Twitter、Facebook等）分别提供了其对SPDY会话的实现。2012年，HTTP-WG提出了在SPDY基础上构建HTTP/2的草案，2013年给出了第一个对HTTP/2的实现，自此HTTP/2、SPDY并行发展，在客户端和服务器上进行了广泛可靠的测试。2015年，Google 宣布放弃对SPDY的继续支持，标志着HTTP/2正式登上历史舞台。</p>
+<h1 id="HTTP-2-0-新特性"><a href="#HTTP-2-0-新特性" class="headerlink" title="HTTP/2.0 新特性"></a>HTTP/2.0 新特性</h1><ul>
+<li><strong>新的二进制格式</strong>（Binary Format），HTTP1.x的解析是基于文本。基于文本协议的格式解析存在天然缺陷，文本的表现形式有多样性，要做到健壮性考虑的场景必然很多，二进制则不同，只认0和1的组合。基于这种考虑HTTP2.0的协议解析决定采用二进制格式，实现方便且健壮。</li>
+<li><p><strong>多路复用</strong>（MultiPlexing），即连接共享，即每一个request都是是用作连接共享机制的。一个request对应一个id，这样一个连接上可以有多个request，每个连接的request可以随机的混杂在一起，接收方可以根据request的id将request再归属到各自不同的服务端请求里面。<br>  多路复用原理图：<img src="/images/duolufuyong.png" alt="image"></p>
+</li>
+<li><p><strong>header压缩</strong>，如上文中所言，对前面提到过HTTP1.x的header带有大量信息，而且每次都要重复发送，HTTP2.0使用encoder来减少需要传输的header大小，通讯双方各自cache一份header fields表，既避免了重复header的传输，又减小了需要传输的大小。</p>
+</li>
+<li><strong>服务端推送</strong>（server push）简单来讲，Server Push就是允许Server对还没有发出的请求进行响应。</li>
+<li><strong>流的优先级</strong>，在HTTP/2中，请求和响应是可以乱序传输的，因此我们需要一个机制可以确保哪些被其他响应数据所依赖的或者关键资源被优先传输，以使网页的呈现和使用具有最好的体验。HTTP/2中在流的层面，采用了“优先级树”的形式确保响应数据能够按照依赖关系和优先级顺序来传输。</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p><strong>为什么要用HTTP/2？</strong></p>
+<p>HTTP/1.x中的头阻塞问题会造成连接总是处于等待响应的状态，而未充分利用带宽；HTTP/1.x大量、重复的请求头在网络上传输，使网络负载了很大一部分本需要传输的数据量。</p>
+<p><strong>HTTP/2能带给我们什么？</strong></p>
+<p>除了解决了上述HTTP/1.x的问题，新的协议还包含了Server Push、流的优先级传输等新特性，使性能得到进一步提升。</p>
+<p><strong>如何升级？</strong></p>
+<p>目前的主流浏览器均已支持，因此一般情况下只需要升级服务端即可。三种方案：找一个支持HTTP/2的CDN部署网站中的静态资源；升级代理服务器；升级所有服务器。</p>
+<p><strong>HTTP/2实际表现如何？</strong></p>
+<p>在存在大量请求、延时受限的环境下，HTTP/2的性能表现相较于HTTP/1.x有明显优势。但考虑到HTTP/2尚年幼，很多特性的实现还未完善，许多特性的表现可能并非理想。因此在线上升级之前要做充分的测试，确保所采用的实现能够支持你需的特性，其缺陷不会对性能造成重大影响。</p>
+<p><strong>关于HTTP1.x的一些优化方式，例如文件合并压缩，资源cdn，js，css优化等等同样使用与HTTP2.0和HTTPS，所以web前端的优化，还是要继续进行。</strong></p>
+<p>参考：<a href="https://juejin.im/post/59e46b2651882578b8185a05" target="_blank" rel="external">https://juejin.im/post/59e46b2651882578b8185a05</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/10/14/理解JavaScript的执行上下文/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'http://yoursite.com/2017/10/18/HTTP1-0到HTTP2-0的演化/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>box-shadow属性探秘 | Zoey&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="CSS," />
+  
+
+  <meta name="description" content="在学习CSS3时发现了box-shadow 这一奇妙又强大的属性，于是利用它结合CSS3动画做了一些loading效果图。演示地址：戳我下面让我们来探索这个奇妙的属性值。 语法box-shadow 属性值由六部分组成： 1box-shadow: offset-x offset-y blur spread color position; 一定要注意顺序。   offset-xoffset-x 用来声">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="box-shadow属性探秘">
+<meta property="og:url" content="http://yoursite.com/2017/08/28/box-shadow属性探秘/index.html">
+<meta property="og:site_name" content="Zoey&#39;s Blog">
+<meta property="og:description" content="在学习CSS3时发现了box-shadow 这一奇妙又强大的属性，于是利用它结合CSS3动画做了一些loading效果图。演示地址：戳我下面让我们来探索这个奇妙的属性值。 语法box-shadow 属性值由六部分组成： 1box-shadow: offset-x offset-y blur spread color position; 一定要注意顺序。   offset-xoffset-x 用来声">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-21T10:47:07.789Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="box-shadow属性探秘">
+<meta name="twitter:description" content="在学习CSS3时发现了box-shadow 这一奇妙又强大的属性，于是利用它结合CSS3动画做了一些loading效果图。演示地址：戳我下面让我们来探索这个奇妙的属性值。 语法box-shadow 属性值由六部分组成： 1box-shadow: offset-x offset-y blur spread color position; 一定要注意顺序。   offset-xoffset-x 用来声">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#语法"><span class="toc-text">语法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#offset-x"><span class="toc-text">offset-x</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#offset-y"><span class="toc-text">offset-y</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#blur"><span class="toc-text">blur</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#spread"><span class="toc-text">spread</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#color"><span class="toc-text">color</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#position"><span class="toc-text">position</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#多重阴影"><span class="toc-text">多重阴影</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#圆角阴影"><span class="toc-text">圆角阴影</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-box-shadow属性探秘" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">box-shadow属性探秘</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.08.28</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Zoey</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.forsigner.com/2017/08/28/box-shadow属性探秘/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>在学习CSS3时发现了box-shadow 这一奇妙又强大的属性，于是利用它结合CSS3动画做了一些loading效果图。<br>演示地址：<a href="https://zyydeer.github.io/loader/loader.html" target="_blank" rel="external">戳我</a><br>下面让我们来探索这个奇妙的属性值。</p>
+<h1 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h1><p>box-shadow 属性值由六部分组成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">box-shadow: offset-x offset-y blur spread color position;</div></pre></td></tr></table></figure>
+<p>一定要注意顺序。  </p>
+<h2 id="offset-x"><a href="#offset-x" class="headerlink" title="offset-x"></a>offset-x</h2><p>offset-x 用来声明阴影的水平偏移，即阴影在 X 轴上的位置。当值为正数，阴影位于元素的右侧，若值为负数，阴影位于元素的左侧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.left &#123; box-shadow: 20px 0px 10px 0px rgba(0,0,0,0.5) &#125;</div><div class="line"></div><div class="line">.right &#123; box-shadow: -20px 0px 10px 0px rgba(0,0,0,0.5) &#125;</div></pre></td></tr></table></figure>
+<h2 id="offset-y"><a href="#offset-y" class="headerlink" title="offset-y"></a>offset-y</h2><p>offset-y 用来声明阴影的垂直偏移，即阴影在 Y 轴上的位置。当值为正数，阴影位于元素的下面，若值为负数，阴影位于元素的上面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.left &#123; box-shadow: 0px 20px 10px 0px rgba(0,0,0,0.5) &#125;</div><div class="line"></div><div class="line">.right &#123; box-shadow: 0px -20px 10px 0px rgba(0,0,0,0.5) &#125;</div></pre></td></tr></table></figure>
+<h2 id="blur"><a href="#blur" class="headerlink" title="blur"></a>blur</h2><p>blur 表示阴影的模糊半径。效果同高斯模糊滤镜。值为 0 意味着阴影完全不模糊。blur 值越大，边角越不锋利，阴影越朦胧。不允许负值，负值等同于 0。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">.left &#123; box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.5) &#125;</div><div class="line"></div><div class="line">.middle &#123; box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.5) &#125;</div><div class="line"></div><div class="line">.right &#123; box-shadow: 0px 0px 50px 0px rgba(0,0,0,0.5) &#125;</div></pre></td></tr></table></figure>
+<h2 id="spread"><a href="#spread" class="headerlink" title="spread"></a>spread</h2><p>spread 表示阴影的大小。也可以把这个值看做阴影与元素之间的距离。当值为正数，阴影会向四周扩展。若值为负数，阴影会收缩，小于元素尺寸。默认值 0 会保持阴影和元素尺寸一致。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">.left &#123; box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.5) &#125;</div><div class="line"></div><div class="line">.middle &#123; box-shadow: 0px 0px 20px 20px rgba(0,0,0,0.5) &#125;</div><div class="line"></div><div class="line">.right &#123; box-shadow: 0px 50px 20px -20px rgba(0,0,0,0.5) &#125;</div></pre></td></tr></table></figure>
+<h2 id="color"><a href="#color" class="headerlink" title="color"></a>color</h2><p>color 表示阴影的颜色。可以是任何颜色单位<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.left &#123; box-shadow: 0px 0px 20px 10px #67b3dd &#125;</div><div class="line"></div><div class="line">.right &#123; box-shadow: 0px 0px 20px 10px rgba(0,0,0,0.5) &#125;</div></pre></td></tr></table></figure></p>
+<h2 id="position"><a href="#position" class="headerlink" title="position"></a>position</h2><p>position 表示阴影的位置，可选项。默认为外部阴影。可以通过使用 inset 关键字来制作内部阴影。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.left &#123; box-shadow: 20px 20px 10px 0px rgba(0,0,0,0.5) inset &#125;</div><div class="line"></div><div class="line">.right &#123; box-shadow: 20px 20px 10px 0px rgba(0,0,0,0.5) &#125;</div></pre></td></tr></table></figure>
+<h2 id="多重阴影"><a href="#多重阴影" class="headerlink" title="多重阴影"></a>多重阴影</h2><p>一个元素的 box-shadow 属性可以接受多个阴影声明，组成一个逗号分隔的列表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">.foo &#123; </div><div class="line">    box-shadow: 20px 20px 10px 0px rgba(0,0,0,0.5) inset, /* inner shadow */</div><div class="line">                20px 20px 10px 0px rgba(0,0,0,0.5); /* outer shadow */</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="圆角阴影"><a href="#圆角阴影" class="headerlink" title="圆角阴影"></a>圆角阴影</h2><p>box-shadow 属性的 border-radius 由同一个元素的 border-radius 属性来控制。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">.foo &#123; </div><div class="line">    box-shadow: 20px 20px 10px 0px rgba(0,0,0,0.5);</div><div class="line">    border-raduis: 50%;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过这六个属性值，不需要额外添加dom元素或是伪元素，就可以创造出各种图形效果，是不是很神奇。</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/05/深入理解z-index/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/10/02/学习javascript数据结构与算法/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'http://yoursite.com/2017/08/28/box-shadow属性探秘/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
