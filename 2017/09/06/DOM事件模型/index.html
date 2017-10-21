@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>DOM事件模型 | Zoey&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="javascript," />
+  
+
+  <meta name="description" content="一、事件与事件流事件是与浏览器或文档交互的瞬间，如点击按钮，填写表格等，它是JS与HTML之间交互的桥梁。DOM是树形结构，如果同时给父子节点都绑定事件时，当触发子节点的时候，这两个事件的发生顺序如何决定?这就涉及到事件流的概念，它描述的是页面中接受事件的顺序。 事件流描述的是从页面中接收事件的顺序。 IE的事件流是事件冒泡：事件开始时由具体元素接收，然后逐级向上传播直到document对象：即">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOM事件模型">
+<meta property="og:url" content="http://yoursite.com/2017/09/06/DOM事件模型/index.html">
+<meta property="og:site_name" content="Zoey&#39;s Blog">
+<meta property="og:description" content="一、事件与事件流事件是与浏览器或文档交互的瞬间，如点击按钮，填写表格等，它是JS与HTML之间交互的桥梁。DOM是树形结构，如果同时给父子节点都绑定事件时，当触发子节点的时候，这两个事件的发生顺序如何决定?这就涉及到事件流的概念，它描述的是页面中接受事件的顺序。 事件流描述的是从页面中接收事件的顺序。 IE的事件流是事件冒泡：事件开始时由具体元素接收，然后逐级向上传播直到document对象：即">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-21T18:07:08.498Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DOM事件模型">
+<meta name="twitter:description" content="一、事件与事件流事件是与浏览器或文档交互的瞬间，如点击按钮，填写表格等，它是JS与HTML之间交互的桥梁。DOM是树形结构，如果同时给父子节点都绑定事件时，当触发子节点的时候，这两个事件的发生顺序如何决定?这就涉及到事件流的概念，它描述的是页面中接受事件的顺序。 事件流描述的是从页面中接收事件的顺序。 IE的事件流是事件冒泡：事件开始时由具体元素接收，然后逐级向上传播直到document对象：即">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#一、事件与事件流"><span class="toc-text">一、事件与事件流</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#二、事件处理程序"><span class="toc-text">二、事件处理程序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DOM0级事件处理程序"><span class="toc-text">DOM0级事件处理程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DOM2级事件处理程序"><span class="toc-text">DOM2级事件处理程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IE下（DOM2）事件处理程序"><span class="toc-text">IE下（DOM2）事件处理程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#跨浏览器的事件处理程序"><span class="toc-text">跨浏览器的事件处理程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DOM0和DOM2事件的区别"><span class="toc-text">DOM0和DOM2事件的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件处理函数的执行顺序"><span class="toc-text">事件处理函数的执行顺序</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#三、事件对象"><span class="toc-text">三、事件对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DOM中的事件对象属性"><span class="toc-text">DOM中的事件对象属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IE中的事件对象属性"><span class="toc-text">IE中的事件对象属性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#四、事件委托"><span class="toc-text">四、事件委托</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-DOM事件模型" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">DOM事件模型</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.09.06</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Zoey</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.forsigner.com/2017/09/06/DOM事件模型/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="一、事件与事件流"><a href="#一、事件与事件流" class="headerlink" title="一、事件与事件流"></a>一、事件与事件流</h1><p><strong>事件</strong>是与浏览器或文档交互的瞬间，如点击按钮，填写表格等，它是JS与HTML之间交互的桥梁。<br>DOM是树形结构，如果同时给父子节点都绑定事件时，当触发子节点的时候，这两个事件的发生顺序如何决定?这就涉及到事件流的概念，它描述的是页面中接受事件的顺序。</p>
+<p><strong>事件流</strong>描述的是从页面中接收事件的顺序。</p>
+<p>IE的事件流是事件冒泡：事件开始时由具体元素接收，然后逐级向上传播直到document对象：即 div——body——html——document；<br>IE9+/现代浏览器支持事件捕获：由document对象先接收到事件，然后沿DOM树依次向下一直传播到事件的实际目标：即 document——html——body——div；</p>
+<p>DOM事件流规定的三个阶段：事件捕获阶段，处于目标阶段，事件冒泡阶段。</p>
+<p>从DOM事件流模型可以看出，捕获阶段的事件处理函数，一定比冒泡阶段的事件处理函数先执行。</p>
+<h1 id="二、事件处理程序"><a href="#二、事件处理程序" class="headerlink" title="二、事件处理程序"></a>二、事件处理程序</h1><h2 id="DOM0级事件处理程序"><a href="#DOM0级事件处理程序" class="headerlink" title="DOM0级事件处理程序"></a>DOM0级事件处理程序</h2><p>  ● 写在html标签内，缺点：不好维护</p>
+<p>  ● 将一个函数赋值给一个事件处理属性<br>  例：btn.onClick = function() {}</p>
+<p>删除DOM0事件处理程序，只要将对应事件属性置为null即可。<br>btn.onclick = null;</p>
+<h2 id="DOM2级事件处理程序"><a href="#DOM2级事件处理程序" class="headerlink" title="DOM2级事件处理程序"></a>DOM2级事件处理程序</h2><p>DOM2级事件定义了两个方法：addEventListener()和removeEventListener()。<br>接收三个参数：type、handler、useCapture<br>useCapture=false意味着：将事件处理函数加入到冒泡阶段，在冒泡阶段被调用<br>useCapture=true意味着：将事件处理函数加入到捕获阶段，在捕获阶段被调用<br>同一个事件处理函数可以绑定2次,一次用于事件捕获，一次用于事件冒泡。</p>
+<h2 id="IE下（DOM2）事件处理程序"><a href="#IE下（DOM2）事件处理程序" class="headerlink" title="IE下（DOM2）事件处理程序"></a>IE下（DOM2）事件处理程序</h2><p>attachEvent()添加事件  detachEvent()删除事件<br>接收相同的两个参数：’on‘ + type   、handler<br>IE8级更早版本只支持冒泡型事件，所以attachEvent添加的事件都会被添加到冒泡阶段。<br>IE下使用attachEvent()绑定事件时，事件处理函数中的this指的是window对象。</p>
+<h2 id="跨浏览器的事件处理程序"><a href="#跨浏览器的事件处理程序" class="headerlink" title="跨浏览器的事件处理程序"></a>跨浏览器的事件处理程序</h2><p>跨浏览器的事件处理函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">var eventUtil = &#123;</div><div class="line">    // 添加句柄</div><div class="line">    addHandler: function(element, type, handler) &#123;</div><div class="line">        if (element.addEventListener) &#123;</div><div class="line">            element.addEventListener(type, handler, false);</div><div class="line">        &#125; else if (element.attachEvent) &#123;</div><div class="line">            element.attachEvent(&apos;on&apos; + type, handler);</div><div class="line">        &#125; else &#123;</div><div class="line">            element[&apos;on&apos; + type] = handler;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    // 删除句柄</div><div class="line">    removeHandler: function(element, type, handler) &#123;</div><div class="line">        if (element.removeEventListener) &#123;</div><div class="line">            element.removeEventListener(type, handler, false);</div><div class="line">        &#125; else if (element.detachEvent) &#123;</div><div class="line">            element.detachEvent(&apos;on&apos; + type, handler);</div><div class="line">        &#125; else &#123;</div><div class="line">            element[&apos;on&apos; + type] = null;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    //获取事件</div><div class="line">    getEvent: function(event) &#123;</div><div class="line">        return event ? event : window.event;</div><div class="line">    &#125;,</div><div class="line">    //获取事件类型</div><div class="line">    getType: function(event) &#123;</div><div class="line">        return event.type;</div><div class="line">    &#125;,</div><div class="line">    //获取事件源</div><div class="line">    getElement: function(event) &#123;</div><div class="line">        return event.target || event.srcElement;</div><div class="line">    &#125;,</div><div class="line">    //阻止默认事件比如a链接跳转</div><div class="line">    preventDefault: function(event) &#123;</div><div class="line">        if (event.preventDefault) &#123;</div><div class="line">            event.preventDefault();</div><div class="line">        &#125; else &#123;</div><div class="line">            event.returnValue = false;</div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    //阻止事件冒泡</div><div class="line">    stopPropagation: function(event) &#123;</div><div class="line">        if (event.stopPropagation) &#123;</div><div class="line">            event.stopPropagation();</div><div class="line">        &#125; else &#123;</div><div class="line">            event.cancelBubble = true;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="DOM0和DOM2事件的区别"><a href="#DOM0和DOM2事件的区别" class="headerlink" title="DOM0和DOM2事件的区别"></a>DOM0和DOM2事件的区别</h2><ol>
+<li>DOM0中事件一旦发生就直接调用事件句柄，无传播过程。在DOM2中有一个事件的传播过程。包括事件捕获，目标元素的事件处理程序运行，事件冒泡。</li>
+<li>一个DOM对象注册多个类型相同的事件时，DOM0级中会发生事件的覆盖，而DOM2级中则会依次执行各个事件函数。</li>
+</ol>
+<h2 id="事件处理函数的执行顺序"><a href="#事件处理函数的执行顺序" class="headerlink" title="事件处理函数的执行顺序"></a>事件处理函数的执行顺序</h2><p><strong>捕获阶段的处理函数最先执行，其次是目标阶段的处理函数，最后是冒泡阶段的处理函数。目标阶段的处理函数，先注册的先执行，后注册的后执行。</strong></p>
+<p>当用户通过鼠标操作触发 click 事件时，基本的事件触发流程为：<br>MouseDown 事件 –&gt;（ ie下Focus事件）–&gt; MouseUp 事件 –&gt; Click 事件。</p>
+<p>若被点击的元素可以获得焦点，并且当前还没有获得焦点时，会在 MouseDown 事件之后默认触发 Focus 事件，再依次触发其后的 MouseUp 和 Click 事件。<br>非 IE 浏览器中，此情况下元素无法获得焦点，也不会触发 Focus 事件。</p>
+<h1 id="三、事件对象"><a href="#三、事件对象" class="headerlink" title="三、事件对象"></a>三、事件对象</h1><h3 id="DOM中的事件对象属性"><a href="#DOM中的事件对象属性" class="headerlink" title="DOM中的事件对象属性"></a>DOM中的事件对象属性</h3><ul>
+<li>type: 获取事件类型</li>
+<li>target：事件目标</li>
+<li>stopPropagation() 阻止事件传播（冒泡+捕获）</li>
+<li>preventDefault() 阻止事件的默认行为<h3 id="IE中的事件对象属性"><a href="#IE中的事件对象属性" class="headerlink" title="IE中的事件对象属性"></a>IE中的事件对象属性</h3></li>
+<li>type: 获取事件类型</li>
+<li>srcElement：事件目标</li>
+<li>cancelBubble=true  阻止事件冒泡</li>
+<li>returnValue=false   阻止事件的默认行为</li>
+</ul>
+<p>IE8以及以前可以通过 window.event.cancelBubble=true阻止事件的冒泡；<br>IE9+/FF/Chrome通过event.stopPropagation()阻止事件的继续传播（冒泡或捕获都支持）。  </p>
+<h1 id="四、事件委托"><a href="#四、事件委托" class="headerlink" title="四、事件委托"></a>四、事件委托</h1><p>事件委托利用了事件冒泡，只用一个事件处理程序就可以管理某一类型的所有事件。</p>
+<p><strong>使用场景：</strong></p>
+<ul>
+<li>给许多子元素绑定相同的事件，比如ul的li元素，或者table的td元素。可以大量节省内存，减少事件注册。</li>
+<li>可以实现当新增子对象时无需再次绑定事件，对于动态内容极其合适。</li>
+</ul>
+<p><strong>优点：</strong></p>
+<ul>
+<li>document对象很快就可以访问，而且可以在页面周期的任何时段为它添加事件处理程序。只要可单击的元素呈现在页面上，就可以立即具备适当的功能。</li>
+<li>在页面中设置事件处理程序所需的时间更少。只添加一个事件处理程序所需的DOM引用更少，所花时间也更少。</li>
+<li>整个页面占用内存空间更少，能够提升整体性能。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<p>如果把所有事件都用事件代理，可能会出现本不该被触发的事件被绑定上了事件的情况。</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/30/javascript中的深复制和浅复制/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/09/27/Event-Loop（转自阮一峰老师）/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'http://yoursite.com/2017/09/06/DOM事件模型/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

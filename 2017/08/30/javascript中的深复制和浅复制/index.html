@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>javascript中的深复制和浅复制 | Zoey&#39;s Blog</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="javascript," />
+  
+
+  <meta name="description" content="在明白什么深复制和浅复制之前，首先明确几个概念。 栈（stack）和堆（heap）栈上的空间是自动分配自动回收的，所以栈上的数据的生存周期只是在函数的运行过程中，运行后就释放掉，不可以再访问。 堆则是程序员根据需要自己申请的空间，大小不定也不会自动释放。只要程序员不释放空间，就一直可以访问到，一旦忘记释放会造成内存泄露。 基本类型和引用类型基本类型：存放在栈内存中的简单数据段，数据大小确定，内存空">
+<meta name="keywords" content="javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript中的深复制和浅复制">
+<meta property="og:url" content="http://yoursite.com/2017/08/30/javascript中的深复制和浅复制/index.html">
+<meta property="og:site_name" content="Zoey&#39;s Blog">
+<meta property="og:description" content="在明白什么深复制和浅复制之前，首先明确几个概念。 栈（stack）和堆（heap）栈上的空间是自动分配自动回收的，所以栈上的数据的生存周期只是在函数的运行过程中，运行后就释放掉，不可以再访问。 堆则是程序员根据需要自己申请的空间，大小不定也不会自动释放。只要程序员不释放空间，就一直可以访问到，一旦忘记释放会造成内存泄露。 基本类型和引用类型基本类型：存放在栈内存中的简单数据段，数据大小确定，内存空">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-21T18:01:24.265Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript中的深复制和浅复制">
+<meta name="twitter:description" content="在明白什么深复制和浅复制之前，首先明确几个概念。 栈（stack）和堆（heap）栈上的空间是自动分配自动回收的，所以栈上的数据的生存周期只是在函数的运行过程中，运行后就释放掉，不可以再访问。 堆则是程序员根据需要自己申请的空间，大小不定也不会自动释放。只要程序员不释放空间，就一直可以访问到，一旦忘记释放会造成内存泄露。 基本类型和引用类型基本类型：存放在栈内存中的简单数据段，数据大小确定，内存空">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#栈（stack）和堆（heap）"><span class="toc-text">栈（stack）和堆（heap）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#基本类型和引用类型"><span class="toc-text">基本类型和引用类型</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#浅复制-vs-深复制"><span class="toc-text">浅复制 vs 深复制</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#浅复制"><span class="toc-text">浅复制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Array的slice和concat方法"><span class="toc-text">Array的slice和concat方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#深复制"><span class="toc-text">深复制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JSON对象的parse和stringify"><span class="toc-text">JSON对象的parse和stringify</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自己实现一个深复制"><span class="toc-text">自己实现一个深复制</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-javascript中的深复制和浅复制" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">javascript中的深复制和浅复制</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.08.30</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>Zoey</span>
+        </span>
+      
+
+      
+
+
+      
+        <span>
+          <i class="icon-comment"></i>
+          <a href="http://www.forsigner.com/2017/08/30/javascript中的深复制和浅复制/#disqus_thread"></a>
+        </span>
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>在明白什么深复制和浅复制之前，首先明确几个概念。</p>
+<h1 id="栈（stack）和堆（heap）"><a href="#栈（stack）和堆（heap）" class="headerlink" title="栈（stack）和堆（heap）"></a>栈（stack）和堆（heap）</h1><p><strong>栈</strong>上的空间是自动分配自动回收的，所以栈上的数据的生存周期只是在函数的运行过程中，运行后就释放掉，不可以再访问。</p>
+<p><strong>堆</strong>则是程序员根据需要自己申请的空间，大小不定也不会自动释放。只要程序员不释放空间，就一直可以访问到，一旦忘记释放会造成内存泄露。</p>
+<h1 id="基本类型和引用类型"><a href="#基本类型和引用类型" class="headerlink" title="基本类型和引用类型"></a>基本类型和引用类型</h1><p><strong>基本类型</strong>：存放在栈内存中的简单数据段，数据大小确定，内存空间大小可以分配。基本数据类型(null,undefined,string,number和boolean)是直接按值存放的，所以可以直接访问。</p>
+<p><strong>引用类型</strong>：存放在堆内存中的对象，变量实际保存的是一个指针，这个指针指向另一个位置。每个空间大小不一样。<br>当我们需要访问引用类型（如对象，数组，函数等）的值时，首先从栈中获得该对象的地址指针，然后再从堆内存中取得所需的数据。</p>
+<h1 id="浅复制-vs-深复制"><a href="#浅复制-vs-深复制" class="headerlink" title="浅复制 vs 深复制"></a>浅复制 vs 深复制</h1><p>浅复制和深复制都可以实现在已有对象的基础上再生一份的作用，但是对象的实例是存储在堆内存中然后通过一个引用值去操作对象，由此复制的时候就存在两种情况了：复制引用和复制实例，这也是浅复制和深复制的区别所在。</p>
+<p><strong>浅复制</strong>：浅复制是复制引用，复制后的引用都是指向同一个对象的实例，彼此之间的操作会<strong>互相影响</strong>。</p>
+<p><strong>深复制</strong>：深复制不是简单的复制引用，而是在<strong>堆中重新分配内存</strong>，并且把源对象实例的所有属性都进行新建复制，以保证深复制的对象的引用图不包含任何原有对象或对象图上的任何对象，复制后的对象与原来的对象是完全隔离的。</p>
+<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><h2 id="Array的slice和concat方法"><a href="#Array的slice和concat方法" class="headerlink" title="Array的slice和concat方法"></a>Array的slice和concat方法</h2><p>Array的slice和concat方法都会返回一个新的数组实例，但是这两个方法对于数组中的对象元素却没有执行深复制，而只是复制了引用的浅复制，通过以下代码进行理解：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var array = [1,2,3];</div><div class="line">var array_shallow = array;</div><div class="line">var array_concat = array.concat();</div><div class="line">var array_slice = array.slice(0);</div><div class="line">console.log(array === array_shallow);   //true</div><div class="line">console.log(array === array_slice);     //false</div><div class="line">console.log(array === array_concat);    //false</div></pre></td></tr></table></figure>
+<p>可以看出，concat和slice返回的不同的数组实例，这与直接的引用复制是不同的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var array = [1, [1,2,3], &#123;name:&quot;array&quot;&#125;];</div><div class="line">var array_concat = array.concat();</div><div class="line">var array_slice = array.slice(0);</div><div class="line">//改变array_concat中数组元素的值</div><div class="line">array_concat[1][0] = 5;</div><div class="line">console.log(array[1]);    //[5,2,3]</div><div class="line">console.log(array_slice[1]);  //[5,2,3]</div><div class="line">//改变array_slice中对象元素的值</div><div class="line">array_slice[2].name = &quot;array_slice&quot;;</div><div class="line">console.log(array[2].name);   //array_slice</div><div class="line">console.log(array_concat[2].name); //array_slice</div></pre></td></tr></table></figure>
+<p>通过代码的输出可以看出concat和slice并不是真正的深复制，数组中的对象元素(Object,Array等)只是复制了引用。</p>
+<h1 id="深复制"><a href="#深复制" class="headerlink" title="深复制"></a>深复制</h1><h2 id="JSON对象的parse和stringify"><a href="#JSON对象的parse和stringify" class="headerlink" title="JSON对象的parse和stringify"></a>JSON对象的parse和stringify</h2><p>JSON对象parse方法可以将JSON字符串反序列化成JS对象，stringify方法可以将JS对象序列化成JSON字符串，借助这两个方法，也可以实现对象的深复制。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var source = &#123;</div><div class="line">    name:&quot;source&quot;,</div><div class="line">    child:&#123;</div><div class="line">        name:&quot;child&quot;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var target = JSON.parse(JSON.stringify(source));</div><div class="line">//改变target的name属性</div><div class="line">target.name = &quot;target&quot;;</div><div class="line">console.log(source.name);   //source</div><div class="line">console.log(target.name);   //target</div><div class="line">//改变target的child</div><div class="line">target.child.name = &quot;target child&quot;;</div><div class="line">console.log(source.child.name);  //child</div><div class="line">console.log(target.child.name);  //target child</div></pre></td></tr></table></figure></p>
+<p>从代码的输出可以看出，复制后的target与source是完全隔离的，二者不会相互影响。</p>
+<p>这个方法使用较为简单，可以满足基本的深复制需求，而且能够处理JSON格式能表示的所有数据类型，但是对于正则表达式类型、函数类型等无法进行深复制(而且会直接丢失相应的值)，同时如果对象中存在循环引用的情况也无法正确处理。</p>
+<h2 id="自己实现一个深复制"><a href="#自己实现一个深复制" class="headerlink" title="自己实现一个深复制"></a>自己实现一个深复制</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">function getType(obj) &#123;</div><div class="line">      return Object.prototype.toString.call(obj).slice(8,-1);</div><div class="line">&#125;</div><div class="line"></div><div class="line">function deepClone(obj)&#123;</div><div class="line">    var type = getType(obj);</div><div class="line">    var result;</div><div class="line">    if (type === &quot;Array&quot;) &#123;</div><div class="line">          result = [];</div><div class="line">    &#125;else if(type === &quot;Object&quot;)&#123;</div><div class="line">          result = &#123;&#125;;</div><div class="line">    &#125;else&#123;</div><div class="line">        //除了数组和对象，其他基本类型的数据都可以通过简单赋值进行克隆。</div><div class="line">        return obj;</div><div class="line">    &#125;;</div><div class="line">    //对象属性的遍历</div><div class="line">    for (var key in obj) &#123;</div><div class="line">        //继续判断属性的数据类型</div><div class="line">        if (getType(obj[key]) == &quot;Object&quot; || getType(obj[key])==&quot;Array&quot;) &#123;</div><div class="line">             //如果属性值是对象,递归调用</div><div class="line">             result[key] = deepClone(obj[key]);</div><div class="line">        &#125; else&#123;</div><div class="line">            //如果属性都是简单的数据段，直接赋值</div><div class="line">           result[key] = obj[key];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/qr-wechat.png" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/qr-alipay.png" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/28/box-shadow属性探秘/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/09/06/DOM事件模型/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+  <section class="disqus-comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+  </section>
+
+  <script>
+    var disqus_shortname = 'forsigner';
+    
+    var disqus_url = 'http://yoursite.com/2017/08/30/javascript中的深复制和浅复制/';
+    
+    (function(){
+      var dsq = document.createElement('script');
+      dsq.type = 'text/javascript';
+      dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+
+  <script id="dsq-count-scr" src="//forsigner.disqus.com/count.js" async></script>
+
+
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
