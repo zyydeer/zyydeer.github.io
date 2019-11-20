@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-11-20T16:38:35.524Z</updated>
+  <updated>2019-11-20T14:58:45.643Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,36 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>test2</title>
-    <link href="http://yoursite.com/2019/11/21/test2/"/>
-    <id>http://yoursite.com/2019/11/21/test2/</id>
-    <published>2019-11-20T16:38:35.000Z</published>
-    <updated>2019-11-20T16:38:35.524Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>test</title>
-    <link href="http://yoursite.com/2019/11/21/test/"/>
-    <id>http://yoursite.com/2019/11/21/test/</id>
-    <published>2019-11-20T16:28:29.000Z</published>
-    <updated>2019-11-20T16:28:29.213Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-    
-  </entry>
   
   <entry>
     <title>视频产品浅析：剪辑工具与Vlog社区</title>
@@ -408,6 +378,32 @@
   </entry>
   
   <entry>
+    <title>JavaScript - Execution Context</title>
+    <link href="http://yoursite.com/2017/09/29/%E7%90%86%E8%A7%A3JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/"/>
+    <id>http://yoursite.com/2017/09/29/%E7%90%86%E8%A7%A3JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/</id>
+    <published>2017-09-29T14:01:00.000Z</published>
+    <updated>2019-11-20T14:58:45.643Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="执行上下文（Execution-Context）"><a href="#执行上下文（Execution-Context）" class="headerlink" title="执行上下文（Execution Context）"></a>执行上下文（Execution Context）</h1><p>在JavaScript中有三种代码运行环境：</p><ul><li>全局环境Global Code<br>JavaScript代码开始运行的默认环境</li><li>函数环境Function Code<br>代码进入一个JavaScript函数</li><li>Eval Code<br>使用eval()执行代码  </li></ul><p>为了表示不同的运行环境，JavaScript中有一个执行上下文（Execution context，EC）的概念。也就是说，当JavaScript代码执行的时候，会进入不同的执行上下文，这些执行上下文就构成了一个执行上下文栈（Execution context stack，ECS）。</p><h1 id="变量对象（Variable-object）"><a href="#变量对象（Variable-object）" class="headerlink" title="变量对象（Variable object）"></a>变量对象（Variable object）</h1><p>我们知道 变量和执行上下文相关 那么它就应该知道数据储存在哪里以及如何访问这些数据，这种机制被称为变量对象（Variable Object）简称VO。<br>处理执行上下文代码分为两个阶段:<br>①进入执行上下文<br>②执行代码<br>当进入执行上下文时（代码执行前），变量对象VO 就会被下列属性填充：  </p><ol><li>函数的所有形参（如果是在函数执行上下文中）<br>每个形参都对应变量对象中的一个属性，该属性由形参名和对应的实参值构成，如果没有传递实参，那么该属性值就为 undefined</li><li>所有函数声明（FunctionDeclaration, FD）<br>每个函数声明都对应变量对象中的一个属性，这个属性由一个函数对象的名称和值构成，如果变量对象中存在相同的属性名，则完全替换该属性。</li><li>所有变量声明（var, VariableDeclaration）<br>每个变量声明都对应变量对象中的一个属性，该属性的键/值是变量名和 undefined，如果变量名与已经声明的形参或函数相同，则变量声明不会干扰已经存在的这类属性。</li></ol><h1 id="活动对象（Activation-object）"><a href="#活动对象（Activation-object）" class="headerlink" title="活动对象（Activation object）"></a>活动对象（Activation object）</h1><p>只有全局上下文的变量对象允许通过VO的属性名称间接访问；在函数执行上下文中，VO是不能直接访问的，此时由激活对象(简称AO)扮演VO的角色。激活对象 是在进入函数上下文时刻被创建的，它通过函数的arguments属性初始化。  </p><p>Arguments Objects 是函数上下文里的激活对象AO中的内部对象，它包括下列属性：</p><ol><li>callee：指向当前函数的引用</li><li>length： 真正传递的参数的个数</li><li>properties-indexes：就是函数的参数值(按参数列表从左到右排列)  </li></ol><p>对于VO和AO的关系可以理解为，VO在不同的Execution Context中会有不同的表现：当在Global Execution Context中，可以直接使用VO；但是，在函数Execution Context中，AO就会被创建。</p><h1 id="JS解析器做了什么"><a href="#JS解析器做了什么" class="headerlink" title="JS解析器做了什么"></a>JS解析器做了什么</h1><p>当一段JavaScript代码执行的时候，JavaScript解释器会创建执行上下文，其实这里会有两个阶段：</p><p><strong>1.创建阶段</strong>（进入执行上下文）</p><ul><li>创建作用域链Scope chain</li><li>创建VO/AO（variables, functions and arguments）</li><li>设置this的值  </li></ul><p><strong>2.激活阶段</strong>（执行代码）<br>设置变量的值、函数的引用，然后解释/执行代码。  </p><p>对于”创建VO/AO”这一步，JavaScript解释器主要做了下面的事情：  </p><ul><li>根据函数的参数，创建并初始化参数对象</li></ul><ul><li><p>扫描函数内部代码，查找函数声明</p><ul><li>对于所有找到的函数声明，将函数名和函数引用存入VO/AO中</li><li><strong>如果VO/AO中已经有同名的函数，那么就进行覆盖</strong>   </li></ul></li><li><p>扫描函数内部代码，查找变量声明</p><ul><li>对于所有找到的变量声明，将变量名存入VO/AO中，并初始化为”undefined”</li><li>如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性</li></ul></li></ul><h1 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h1><p>理解概念很枯燥，我们来分析实例。  </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">console.log(a);</span><br><span class="line">var a = 1;</span><br><span class="line">console.log(a);</span><br><span class="line">function a()&#123;alert(2)&#125;</span><br><span class="line">console.log(a);</span><br><span class="line">var a = 3;</span><br><span class="line">console.log(a);</span><br><span class="line">function a() &#123;alert(4);&#125;</span><br><span class="line">console.log(a);</span><br></pre></td></tr></table></figure><h3 id="分析流程如下"><a href="#分析流程如下" class="headerlink" title="分析流程如下:"></a>分析流程如下:</h3><p><strong>进入执行上下文（创建阶段）填充vo对象</strong>   </p><ol><li><p>第二行有var定义的变量a，将其保存为a=undefined;</p></li><li><p>第4行有function声明和第二行的a同名此时由于函数的等级高于变量，于是就覆盖变量a，此时a= function a (){ alert(2); }</p></li><li><p>第六行又发现一个var定义的变量，名称与第四行的函数相同，但等级低，故a= function a (){ alert(2); }不变。</p></li><li><p>同理，由于第八行后定义，又为同一等级的函数，所以a= function a (){ alert(4); }</p></li><li><p>浏览器解析完成<br>此时的<br>vo= {<br>a:<br>}</p><p><strong>执行代码（激活阶段）</strong></p></li><li><p>第一行 a应该是打印function a() {alert(4);}</p></li><li><p>第二行表达式修改了a的值，使其为1，所以第三行输出a=1</p></li><li><p>第四行定义了一个函数，但没有执行，所以第五行输出还为1</p></li><li><p>第六行表达式又一次更改了a的值，现在a=3，此时的a为一个数字，第七行输出3</p></li><li><p>同理，第八行没有做更改，第九行还是输出3</p></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;执行上下文（Execution-Context）&quot;&gt;&lt;a href=&quot;#执行上下文（Execution-Context）&quot; class=&quot;headerlink&quot; title=&quot;执行上下文（Execution Context）&quot;&gt;&lt;/a&gt;执行上下文（Executio
+      
+    
+    </summary>
+    
+    
+    
+      <category term="技术" scheme="http://yoursite.com/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="前端" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
     <title>对Js赋值运算的新认识</title>
     <link href="http://yoursite.com/2017/09/29/%E5%AF%B9Js%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%9A%84%E6%96%B0%E8%AE%A4%E8%AF%86/"/>
     <id>http://yoursite.com/2017/09/29/%E5%AF%B9Js%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%9A%84%E6%96%B0%E8%AE%A4%E8%AF%86/</id>
@@ -435,32 +431,6 @@
   </entry>
   
   <entry>
-    <title>JavaScript - Execution Context</title>
-    <link href="http://yoursite.com/2017/09/29/%E7%90%86%E8%A7%A3JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/"/>
-    <id>http://yoursite.com/2017/09/29/%E7%90%86%E8%A7%A3JavaScript%E7%9A%84%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87/</id>
-    <published>2017-09-29T14:01:00.000Z</published>
-    <updated>2019-11-20T14:58:45.643Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="执行上下文（Execution-Context）"><a href="#执行上下文（Execution-Context）" class="headerlink" title="执行上下文（Execution Context）"></a>执行上下文（Execution Context）</h1><p>在JavaScript中有三种代码运行环境：</p><ul><li>全局环境Global Code<br>JavaScript代码开始运行的默认环境</li><li>函数环境Function Code<br>代码进入一个JavaScript函数</li><li>Eval Code<br>使用eval()执行代码  </li></ul><p>为了表示不同的运行环境，JavaScript中有一个执行上下文（Execution context，EC）的概念。也就是说，当JavaScript代码执行的时候，会进入不同的执行上下文，这些执行上下文就构成了一个执行上下文栈（Execution context stack，ECS）。</p><h1 id="变量对象（Variable-object）"><a href="#变量对象（Variable-object）" class="headerlink" title="变量对象（Variable object）"></a>变量对象（Variable object）</h1><p>我们知道 变量和执行上下文相关 那么它就应该知道数据储存在哪里以及如何访问这些数据，这种机制被称为变量对象（Variable Object）简称VO。<br>处理执行上下文代码分为两个阶段:<br>①进入执行上下文<br>②执行代码<br>当进入执行上下文时（代码执行前），变量对象VO 就会被下列属性填充：  </p><ol><li>函数的所有形参（如果是在函数执行上下文中）<br>每个形参都对应变量对象中的一个属性，该属性由形参名和对应的实参值构成，如果没有传递实参，那么该属性值就为 undefined</li><li>所有函数声明（FunctionDeclaration, FD）<br>每个函数声明都对应变量对象中的一个属性，这个属性由一个函数对象的名称和值构成，如果变量对象中存在相同的属性名，则完全替换该属性。</li><li>所有变量声明（var, VariableDeclaration）<br>每个变量声明都对应变量对象中的一个属性，该属性的键/值是变量名和 undefined，如果变量名与已经声明的形参或函数相同，则变量声明不会干扰已经存在的这类属性。</li></ol><h1 id="活动对象（Activation-object）"><a href="#活动对象（Activation-object）" class="headerlink" title="活动对象（Activation object）"></a>活动对象（Activation object）</h1><p>只有全局上下文的变量对象允许通过VO的属性名称间接访问；在函数执行上下文中，VO是不能直接访问的，此时由激活对象(简称AO)扮演VO的角色。激活对象 是在进入函数上下文时刻被创建的，它通过函数的arguments属性初始化。  </p><p>Arguments Objects 是函数上下文里的激活对象AO中的内部对象，它包括下列属性：</p><ol><li>callee：指向当前函数的引用</li><li>length： 真正传递的参数的个数</li><li>properties-indexes：就是函数的参数值(按参数列表从左到右排列)  </li></ol><p>对于VO和AO的关系可以理解为，VO在不同的Execution Context中会有不同的表现：当在Global Execution Context中，可以直接使用VO；但是，在函数Execution Context中，AO就会被创建。</p><h1 id="JS解析器做了什么"><a href="#JS解析器做了什么" class="headerlink" title="JS解析器做了什么"></a>JS解析器做了什么</h1><p>当一段JavaScript代码执行的时候，JavaScript解释器会创建执行上下文，其实这里会有两个阶段：</p><p><strong>1.创建阶段</strong>（进入执行上下文）</p><ul><li>创建作用域链Scope chain</li><li>创建VO/AO（variables, functions and arguments）</li><li>设置this的值  </li></ul><p><strong>2.激活阶段</strong>（执行代码）<br>设置变量的值、函数的引用，然后解释/执行代码。  </p><p>对于”创建VO/AO”这一步，JavaScript解释器主要做了下面的事情：  </p><ul><li>根据函数的参数，创建并初始化参数对象</li></ul><ul><li><p>扫描函数内部代码，查找函数声明</p><ul><li>对于所有找到的函数声明，将函数名和函数引用存入VO/AO中</li><li><strong>如果VO/AO中已经有同名的函数，那么就进行覆盖</strong>   </li></ul></li><li><p>扫描函数内部代码，查找变量声明</p><ul><li>对于所有找到的变量声明，将变量名存入VO/AO中，并初始化为”undefined”</li><li>如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性</li></ul></li></ul><h1 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h1><p>理解概念很枯燥，我们来分析实例。  </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">console.log(a);</span><br><span class="line">var a = 1;</span><br><span class="line">console.log(a);</span><br><span class="line">function a()&#123;alert(2)&#125;</span><br><span class="line">console.log(a);</span><br><span class="line">var a = 3;</span><br><span class="line">console.log(a);</span><br><span class="line">function a() &#123;alert(4);&#125;</span><br><span class="line">console.log(a);</span><br></pre></td></tr></table></figure><h3 id="分析流程如下"><a href="#分析流程如下" class="headerlink" title="分析流程如下:"></a>分析流程如下:</h3><p><strong>进入执行上下文（创建阶段）填充vo对象</strong>   </p><ol><li><p>第二行有var定义的变量a，将其保存为a=undefined;</p></li><li><p>第4行有function声明和第二行的a同名此时由于函数的等级高于变量，于是就覆盖变量a，此时a= function a (){ alert(2); }</p></li><li><p>第六行又发现一个var定义的变量，名称与第四行的函数相同，但等级低，故a= function a (){ alert(2); }不变。</p></li><li><p>同理，由于第八行后定义，又为同一等级的函数，所以a= function a (){ alert(4); }</p></li><li><p>浏览器解析完成<br>此时的<br>vo= {<br>a:<br>}</p><p><strong>执行代码（激活阶段）</strong></p></li><li><p>第一行 a应该是打印function a() {alert(4);}</p></li><li><p>第二行表达式修改了a的值，使其为1，所以第三行输出a=1</p></li><li><p>第四行定义了一个函数，但没有执行，所以第五行输出还为1</p></li><li><p>第六行表达式又一次更改了a的值，现在a=3，此时的a为一个数字，第七行输出3</p></li><li><p>同理，第八行没有做更改，第九行还是输出3</p></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;执行上下文（Execution-Context）&quot;&gt;&lt;a href=&quot;#执行上下文（Execution-Context）&quot; class=&quot;headerlink&quot; title=&quot;执行上下文（Execution Context）&quot;&gt;&lt;/a&gt;执行上下文（Executio
-      
-    
-    </summary>
-    
-    
-    
-      <category term="技术" scheme="http://yoursite.com/tags/%E6%8A%80%E6%9C%AF/"/>
-    
-      <category term="前端" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
     <title>CSS：box-shadow属性探秘</title>
     <link href="http://yoursite.com/2017/09/28/box-shadow%E5%B1%9E%E6%80%A7%E6%8E%A2%E7%A7%98/"/>
     <id>http://yoursite.com/2017/09/28/box-shadow%E5%B1%9E%E6%80%A7%E6%8E%A2%E7%A7%98/</id>
@@ -474,6 +444,60 @@
       
       
         &lt;p&gt;在学习CSS3时发现了box-shadow 这一奇妙又强大的属性，于是利用它结合CSS3动画做了一些loading效果图。&lt;br&gt;演示地址：&lt;a href=&quot;https://zyydeer.github.io/loader/loader.html&quot; target=&quot;_bla
+      
+    
+    </summary>
+    
+    
+    
+      <category term="技术" scheme="http://yoursite.com/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="前端" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>javascript中的深复制和浅复制</title>
+    <link href="http://yoursite.com/2017/09/10/javascript%E4%B8%AD%E7%9A%84%E6%B7%B1%E5%A4%8D%E5%88%B6%E5%92%8C%E6%B5%85%E5%A4%8D%E5%88%B6/"/>
+    <id>http://yoursite.com/2017/09/10/javascript%E4%B8%AD%E7%9A%84%E6%B7%B1%E5%A4%8D%E5%88%B6%E5%92%8C%E6%B5%85%E5%A4%8D%E5%88%B6/</id>
+    <published>2017-09-10T14:01:00.000Z</published>
+    <updated>2019-11-20T14:58:45.640Z</updated>
+    
+    <content type="html"><![CDATA[<p>在明白什么深复制和浅复制之前，首先明确几个概念。</p><h1 id="栈（stack）和堆（heap）"><a href="#栈（stack）和堆（heap）" class="headerlink" title="栈（stack）和堆（heap）"></a>栈（stack）和堆（heap）</h1><p><strong>栈</strong>上的空间是自动分配自动回收的，所以栈上的数据的生存周期只是在函数的运行过程中，运行后就释放掉，不可以再访问。</p><p><strong>堆</strong>则是程序员根据需要自己申请的空间，大小不定也不会自动释放。只要程序员不释放空间，就一直可以访问到，一旦忘记释放会造成内存泄露。</p><h1 id="基本类型和引用类型"><a href="#基本类型和引用类型" class="headerlink" title="基本类型和引用类型"></a>基本类型和引用类型</h1><p><strong>基本类型</strong>：存放在栈内存中的简单数据段，数据大小确定，内存空间大小可以分配。基本数据类型(null,undefined,string,number和boolean)是直接按值存放的，所以可以直接访问。</p><p><strong>引用类型</strong>：存放在堆内存中的对象，变量实际保存的是一个指针，这个指针指向另一个位置。每个空间大小不一样。<br>当我们需要访问引用类型（如对象，数组，函数等）的值时，首先从栈中获得该对象的地址指针，然后再从堆内存中取得所需的数据。</p><h1 id="浅复制-vs-深复制"><a href="#浅复制-vs-深复制" class="headerlink" title="浅复制 vs 深复制"></a>浅复制 vs 深复制</h1><p>浅复制和深复制都可以实现在已有对象的基础上再生一份的作用，但是对象的实例是存储在堆内存中然后通过一个引用值去操作对象，由此复制的时候就存在两种情况了：复制引用和复制实例，这也是浅复制和深复制的区别所在。</p><p><strong>浅复制</strong>：浅复制是复制引用，复制后的引用都是指向同一个对象的实例，彼此之间的操作会<strong>互相影响</strong>。</p><p><strong>深复制</strong>：深复制不是简单的复制引用，而是在<strong>堆中重新分配内存</strong>，并且把源对象实例的所有属性都进行新建复制，以保证深复制的对象的引用图不包含任何原有对象或对象图上的任何对象，复制后的对象与原来的对象是完全隔离的。</p><h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><h2 id="Array的slice和concat方法"><a href="#Array的slice和concat方法" class="headerlink" title="Array的slice和concat方法"></a>Array的slice和concat方法</h2><p>Array的slice和concat方法都会返回一个新的数组实例，但是这两个方法对于数组中的对象元素却没有执行深复制，而只是复制了引用的浅复制，通过以下代码进行理解：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var array = [1,2,3];</span><br><span class="line">var array_shallow = array;</span><br><span class="line">var array_concat = array.concat();</span><br><span class="line">var array_slice = array.slice(0);</span><br><span class="line">console.log(array === array_shallow);   //true</span><br><span class="line">console.log(array === array_slice);     //false</span><br><span class="line">console.log(array === array_concat);    //false</span><br></pre></td></tr></table></figure><p>可以看出，concat和slice返回的不同的数组实例，这与直接的引用复制是不同的。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var array = [1, [1,2,3], &#123;name:&quot;array&quot;&#125;];</span><br><span class="line">var array_concat = array.concat();</span><br><span class="line">var array_slice = array.slice(0);</span><br><span class="line">//改变array_concat中数组元素的值</span><br><span class="line">array_concat[1][0] = 5;</span><br><span class="line">console.log(array[1]);    //[5,2,3]</span><br><span class="line">console.log(array_slice[1]);  //[5,2,3]</span><br><span class="line">//改变array_slice中对象元素的值</span><br><span class="line">array_slice[2].name = &quot;array_slice&quot;;</span><br><span class="line">console.log(array[2].name);   //array_slice</span><br><span class="line">console.log(array_concat[2].name); //array_slice</span><br></pre></td></tr></table></figure><p>通过代码的输出可以看出concat和slice并不是真正的深复制，数组中的对象元素(Object,Array等)只是复制了引用。</p><h1 id="深复制"><a href="#深复制" class="headerlink" title="深复制"></a>深复制</h1><h2 id="JSON对象的parse和stringify"><a href="#JSON对象的parse和stringify" class="headerlink" title="JSON对象的parse和stringify"></a>JSON对象的parse和stringify</h2><p>JSON对象parse方法可以将JSON字符串反序列化成JS对象，stringify方法可以将JS对象序列化成JSON字符串，借助这两个方法，也可以实现对象的深复制。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var source = &#123;</span><br><span class="line">    name:&quot;source&quot;,</span><br><span class="line">    child:&#123;</span><br><span class="line">        name:&quot;child&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var target = JSON.parse(JSON.stringify(source));</span><br><span class="line">//改变target的name属性</span><br><span class="line">target.name = &quot;target&quot;;</span><br><span class="line">console.log(source.name);   //source</span><br><span class="line">console.log(target.name);   //target</span><br><span class="line">//改变target的child</span><br><span class="line">target.child.name = &quot;target child&quot;;</span><br><span class="line">console.log(source.child.name);  //child</span><br><span class="line">console.log(target.child.name);  //target child</span><br></pre></td></tr></table></figure><p>从代码的输出可以看出，复制后的target与source是完全隔离的，二者不会相互影响。</p><p>这个方法使用较为简单，可以满足基本的深复制需求，而且能够处理JSON格式能表示的所有数据类型，但是对于正则表达式类型、函数类型等无法进行深复制(而且会直接丢失相应的值)，同时如果对象中存在循环引用的情况也无法正确处理。</p><h2 id="自己实现一个深复制"><a href="#自己实现一个深复制" class="headerlink" title="自己实现一个深复制"></a>自己实现一个深复制</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">function getType(obj) &#123;</span><br><span class="line">      return Object.prototype.toString.call(obj).slice(8,-1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function deepClone(obj)&#123;</span><br><span class="line">    var type = getType(obj);</span><br><span class="line">    var result;</span><br><span class="line">    if (type === &quot;Array&quot;) &#123;</span><br><span class="line">          result = [];</span><br><span class="line">    &#125;else if(type === &quot;Object&quot;)&#123;</span><br><span class="line">          result = &#123;&#125;;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        //除了数组和对象，其他基本类型的数据都可以通过简单赋值进行克隆。</span><br><span class="line">        return obj;</span><br><span class="line">    &#125;;</span><br><span class="line">    //对象属性的遍历</span><br><span class="line">    for (var key in obj) &#123;</span><br><span class="line">        //继续判断属性的数据类型</span><br><span class="line">        if (getType(obj[key]) == &quot;Object&quot; || getType(obj[key])==&quot;Array&quot;) &#123;</span><br><span class="line">             //如果属性值是对象,递归调用</span><br><span class="line">             result[key] = deepClone(obj[key]);</span><br><span class="line">        &#125; else&#123;</span><br><span class="line">            //如果属性都是简单的数据段，直接赋值</span><br><span class="line">           result[key] = obj[key];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在明白什么深复制和浅复制之前，首先明确几个概念。&lt;/p&gt;
+&lt;h1 id=&quot;栈（stack）和堆（heap）&quot;&gt;&lt;a href=&quot;#栈（stack）和堆（heap）&quot; class=&quot;headerlink&quot; title=&quot;栈（stack）和堆（heap）&quot;&gt;&lt;/a&gt;栈（stac
+      
+    
+    </summary>
+    
+    
+    
+      <category term="技术" scheme="http://yoursite.com/tags/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="前端" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>学习flex布局</title>
+    <link href="http://yoursite.com/2017/09/10/%E5%AD%A6%E4%B9%A0flex%E5%B8%83%E5%B1%80/"/>
+    <id>http://yoursite.com/2017/09/10/%E5%AD%A6%E4%B9%A0flex%E5%B8%83%E5%B1%80/</id>
+    <published>2017-09-10T14:01:00.000Z</published>
+    <updated>2019-11-20T14:58:45.642Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文为学习flex布局时的知识梳理与总结。</p><h1 id="什么是flex布局"><a href="#什么是flex布局" class="headerlink" title="什么是flex布局"></a>什么是flex布局</h1><p>flex布局的官方说法是CSS3弹性盒子(Flexible Box 或 Flexbox)，很适合在页面布局必须适应不同屏幕尺寸和不同显示设备时进行使用。  </p><h2 id="弹性容器-Flex-container"><a href="#弹性容器-Flex-container" class="headerlink" title="弹性容器(Flex container)"></a>弹性容器(Flex container)</h2><p>采用flex布局的元素称为弹性容器，通过设置元素的display属性值为flex或inline-flex来定义弹性容器，它的子元素就自动成为容器成员。值 flex 使弹性容器成为块级元素。值 inline-flex 使弹性容器成为单个不可分的行内级元素。</p><h2 id="弹性项目-Flex-item"><a href="#弹性项目-Flex-item" class="headerlink" title="弹性项目(Flex item)"></a>弹性项目(Flex item)</h2><p>弹性容器里子元素自动成为弹性项目，并且弹性项目的float、clear和vertical-align属性将失效。</p><h2 id="轴-Axis"><a href="#轴-Axis" class="headerlink" title="轴(Axis)"></a>轴(Axis)</h2><p>主轴（main axis）——弹性成员沿其排列的轴称为主轴<br>交叉轴（cross axis）和主轴垂直的轴称为侧轴或交叉轴。<br>每一个弹性布局容器都包含两个轴，这两个轴决定了容器里的项目整体布局效果。</p><h2 id="方向"><a href="#方向" class="headerlink" title="方向"></a>方向</h2><p>方向是弹性成员依次排列的方向，比如从左到右，或者从上到下。</p><h2 id="行"><a href="#行" class="headerlink" title="行"></a>行</h2><p>弹性项目可以排列在单个行或者多个行中。 </p><h1 id="容器属性"><a href="#容器属性" class="headerlink" title="容器属性"></a>容器属性</h1><p>以下几个属性可以用在容器上，来设置相应的布局规则。</p><h2 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h2><p>该属性用来确定主轴，即弹性成员排列的方向是水平从左往右还是从右往左，还是垂直从上往下还是从下往上。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-direction: row | row-reverse | column | column-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li>row（默认值）主轴为水平方向，起点在左端。</li><li>row-reverse  主轴为水平方向，起点在右端。</li><li>column  主轴为垂直方向，起点在上沿。</li><li>column-reverse  主轴为垂直方向，起点在下沿。<h2 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h2></li></ul><p>flex-warp属性设置弹性项目是排布在单行还是多个行中，该属性可以控制侧轴的方向。  </p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-wrap: nowrap | wrap | wrap-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li>nowrap 是默认的，表示弹性成员不换行</li><li>wrap  表示换行，第一行在上方</li><li>wrap-reverse  表示换行，第一行在最下方</li></ul><h2 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h2><p>flex-flow是flex-direction和flex-wrap属性的简写，决定弹性项目如何排布。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-flow: (flex-direction) (flex-wrap)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h2><p>该属性定义了项目在主轴上的对齐方式，常用的属性如下：</p><ul><li>flex-start，主轴起点对齐（左对齐）</li><li>flex-end，主轴终点对齐（右对齐）</li><li>center，主轴居中对齐</li><li>space-between，两端对齐，每个项目之间间隔相等。</li><li>space-around，均匀对齐，项目两端的间距相等。</li></ul><h2 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h2><p>该属性定义项目在侧轴上如何对齐，属性如下：</p><ul><li>stretch  （默认）如果项目未设置高度或者高度为auto,那么项目拉伸充满整个侧轴。</li><li>flex-start  侧轴的起点对齐。</li><li>flex-end  侧轴终点对齐。</li><li>center  侧轴的居中对齐。</li><li>baseline:  第一行文字的底部对齐。<h2 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h2></li></ul><p>该属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用，主要取值如下：</p><ul><li>flex-start：与侧轴的起点对齐。</li><li>flex-end：与侧轴的终点对齐。</li><li>center：与侧轴的中点对齐。</li><li>space-between：与侧轴两端对齐，轴线之间的间隔平均分布。</li><li>space-around：在侧轴上均匀分配弹性元素。相邻行元素间距离相同，第一行元素到边框的距离和最后一行元素到行尾的距离是相邻行元素之间距离的一半。</li></ul><h1 id="项目属性"><a href="#项目属性" class="headerlink" title="项目属性"></a>项目属性</h1><p>项目元素自身也可以设置相应的属性。</p><h2 id="order"><a href="#order" class="headerlink" title="order"></a>order</h2><p>该属性将元素与序号关联起来，以此决定哪些元素先出现，即数值越小排列越靠前，默认为0。</p><h2 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h2><p>该属性定义单个项目自身的对齐方式，并覆盖align-items的值。 如果任何flex元素的侧轴方向margin值设置为auto，则会忽略align-self。该属性的取值和align-items一样。</p><h2 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h2><p>该属性定义项目的拉伸放大比例。默认为0，负值无效。当容器有剩余空间时不放大。</p><h2 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h2><p>该属性定义项目的收缩比例，默认为1，随着容器缩小而等比例缩小。<br>如果设置为0，项目将不缩小。flex元素仅在默认宽度之和大于容器的时候才会发生收缩，负值无效。</p><h2 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h2><p>该属性定义项目元素在主轴方向上的初始大小。默认是auto。如果不使用box-sizing来改变盒模型的话，那么这个属性就决定了flex元素的内容盒（content-box）的宽或者高的大小。</p><h2 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h2><p>flex属性是 flex-grow, flex-shrink和flex-basis的简写，默认值为0 1 auto。后两个属性可选。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;本文为学习flex布局时的知识梳理与总结。&lt;/p&gt;
+&lt;h1 id=&quot;什么是flex布局&quot;&gt;&lt;a href=&quot;#什么是flex布局&quot; class=&quot;headerlink&quot; title=&quot;什么是flex布局&quot;&gt;&lt;/a&gt;什么是flex布局&lt;/h1&gt;&lt;p&gt;flex布局的官方说法是C
       
     
     </summary>
