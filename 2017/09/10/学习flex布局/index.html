@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Zoey">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="学习flex布局"/>
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="Zoey&#39;s -个人记录&amp;学习沉淀"/>
+  <!--Type page-->
+  
+      <meta property="og:type" content="article" />
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>学习flex布局 - Zoey&#39;s -个人记录&amp;学习沉淀</title>
+
+
+  <link rel="shortcut icon" href="http://www.icosky.com/icon/png/Nature/Solar%20System/Moon.png">
+
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!----------------------------
+  https://github.com/GallenHu/hexo-theme-Daily
+
+ _____            _   _
+|  __ \          (_) | |
+| |  | |   __ _   _  | |  _   _
+| |  | |  / _` | | | | | | | | |
+| |__| | | (_| | | | | | | |_| |
+|_____/   \__,_| |_| |_|  \__, |
+                          __/ |
+                         |___/
+
+    --------------------------->
+
+<link rel="alternate" href="/atom.xml" title="Zoey's -个人记录&学习沉淀" type="application/atom+xml">
+</head>
+
+
+<body>
+
+  <!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="https://i.bmp.ovh/imgs/2019/11/09336435ca42511b.png" alt="Zoey's -个人记录&学习沉淀" height="60">
+        
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  home
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  archive
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  about
+                
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            学习flex布局
+            
+          </h1>
+          <p class="posted-on">
+          2017-09-10
+          </p>
+          <div class="tags-links">
+            
+              
+                <a href="/tags/技术/" rel="tag">
+                  技术
+                </a>
+              
+                <a href="/tags/前端/" rel="tag">
+                  前端
+                </a>
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content has_line_number">
+          <p>本文为学习flex布局时的知识梳理与总结。</p>
+<h1 id="什么是flex布局"><a href="#什么是flex布局" class="headerlink" title="什么是flex布局"></a>什么是flex布局</h1><p>flex布局的官方说法是CSS3弹性盒子(Flexible Box 或 Flexbox)，很适合在页面布局必须适应不同屏幕尺寸和不同显示设备时进行使用。  </p>
+<h2 id="弹性容器-Flex-container"><a href="#弹性容器-Flex-container" class="headerlink" title="弹性容器(Flex container)"></a>弹性容器(Flex container)</h2><p>采用flex布局的元素称为弹性容器，通过设置元素的display属性值为flex或inline-flex来定义弹性容器，它的子元素就自动成为容器成员。值 flex 使弹性容器成为块级元素。值 inline-flex 使弹性容器成为单个不可分的行内级元素。</p>
+<h2 id="弹性项目-Flex-item"><a href="#弹性项目-Flex-item" class="headerlink" title="弹性项目(Flex item)"></a>弹性项目(Flex item)</h2><p>弹性容器里子元素自动成为弹性项目，并且弹性项目的float、clear和vertical-align属性将失效。</p>
+<h2 id="轴-Axis"><a href="#轴-Axis" class="headerlink" title="轴(Axis)"></a>轴(Axis)</h2><p>主轴（main axis）——弹性成员沿其排列的轴称为主轴<br>交叉轴（cross axis）和主轴垂直的轴称为侧轴或交叉轴。<br>每一个弹性布局容器都包含两个轴，这两个轴决定了容器里的项目整体布局效果。</p>
+<h2 id="方向"><a href="#方向" class="headerlink" title="方向"></a>方向</h2><p>方向是弹性成员依次排列的方向，比如从左到右，或者从上到下。</p>
+<h2 id="行"><a href="#行" class="headerlink" title="行"></a>行</h2><p>弹性项目可以排列在单个行或者多个行中。 </p>
+<h1 id="容器属性"><a href="#容器属性" class="headerlink" title="容器属性"></a>容器属性</h1><p>以下几个属性可以用在容器上，来设置相应的布局规则。</p>
+<h2 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a>flex-direction</h2><p>该属性用来确定主轴，即弹性成员排列的方向是水平从左往右还是从右往左，还是垂直从上往下还是从下往上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-direction: row | row-reverse | column | column-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>row（默认值）主轴为水平方向，起点在左端。</li>
+<li>row-reverse  主轴为水平方向，起点在右端。</li>
+<li>column  主轴为垂直方向，起点在上沿。</li>
+<li>column-reverse  主轴为垂直方向，起点在下沿。<h2 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a>flex-wrap</h2></li>
+</ul>
+<p>flex-warp属性设置弹性项目是排布在单行还是多个行中，该属性可以控制侧轴的方向。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-wrap: nowrap | wrap | wrap-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>nowrap 是默认的，表示弹性成员不换行</li>
+<li>wrap  表示换行，第一行在上方</li>
+<li>wrap-reverse  表示换行，第一行在最下方</li>
+</ul>
+<h2 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a>flex-flow</h2><p>flex-flow是flex-direction和flex-wrap属性的简写，决定弹性项目如何排布。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.box &#123;</span><br><span class="line">  flex-flow: (flex-direction) (flex-wrap)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a>justify-content</h2><p>该属性定义了项目在主轴上的对齐方式，常用的属性如下：</p>
+<ul>
+<li>flex-start，主轴起点对齐（左对齐）</li>
+<li>flex-end，主轴终点对齐（右对齐）</li>
+<li>center，主轴居中对齐</li>
+<li>space-between，两端对齐，每个项目之间间隔相等。</li>
+<li>space-around，均匀对齐，项目两端的间距相等。</li>
+</ul>
+<h2 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a>align-items</h2><p>该属性定义项目在侧轴上如何对齐，属性如下：</p>
+<ul>
+<li>stretch  （默认）如果项目未设置高度或者高度为auto,那么项目拉伸充满整个侧轴。</li>
+<li>flex-start  侧轴的起点对齐。</li>
+<li>flex-end  侧轴终点对齐。</li>
+<li>center  侧轴的居中对齐。</li>
+<li>baseline:  第一行文字的底部对齐。<h2 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a>align-content</h2></li>
+</ul>
+<p>该属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用，主要取值如下：</p>
+<ul>
+<li>flex-start：与侧轴的起点对齐。</li>
+<li>flex-end：与侧轴的终点对齐。</li>
+<li>center：与侧轴的中点对齐。</li>
+<li>space-between：与侧轴两端对齐，轴线之间的间隔平均分布。</li>
+<li>space-around：在侧轴上均匀分配弹性元素。相邻行元素间距离相同，第一行元素到边框的距离和最后一行元素到行尾的距离是相邻行元素之间距离的一半。</li>
+</ul>
+<h1 id="项目属性"><a href="#项目属性" class="headerlink" title="项目属性"></a>项目属性</h1><p>项目元素自身也可以设置相应的属性。</p>
+<h2 id="order"><a href="#order" class="headerlink" title="order"></a>order</h2><p>该属性将元素与序号关联起来，以此决定哪些元素先出现，即数值越小排列越靠前，默认为0。</p>
+<h2 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a>align-self</h2><p>该属性定义单个项目自身的对齐方式，并覆盖align-items的值。 如果任何flex元素的侧轴方向margin值设置为auto，则会忽略align-self。该属性的取值和align-items一样。</p>
+<h2 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h2><p>该属性定义项目的拉伸放大比例。默认为0，负值无效。当容器有剩余空间时不放大。</p>
+<h2 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h2><p>该属性定义项目的收缩比例，默认为1，随着容器缩小而等比例缩小。<br>如果设置为0，项目将不缩小。flex元素仅在默认宽度之和大于容器的时候才会发生收缩，负值无效。</p>
+<h2 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h2><p>该属性定义项目元素在主轴方向上的初始大小。默认是auto。如果不使用box-sizing来改变盒模型的话，那么这个属性就决定了flex元素的内容盒（content-box）的宽或者高的大小。</p>
+<h2 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h2><p>flex属性是 flex-grow, flex-shrink和flex-basis的简写，默认值为0 1 auto。后两个属性可选。</p>
+
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="container">
+      
+<section id="comment">
+  <!-- <h1 class="title">Comments</h1> -->
+
+  
+</section>
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+        <div class="nav-previous">
+          <a href="/2017/09/10/javascript中的深复制和浅复制/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> Older Posts</a>
+        </div>
+      
+      
+        <div class="nav-next">
+          <a href="/2017/08/28/DOM事件模型/" rel="prev">Newer Posts <span class="meta-arraw meta-arraw-right"></span></a>
+        </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<div class="footer-widgets">
+  <div class="row inside-wrapper">
+    <div class="col-1-2">
+      <aside>
+        <h1 class="widget-title">关于本站</h1>
+        <div class="custom-widget-content">
+          
+          <p>个人记录，学习沉淀，温故知新。 Build My Lifelong System.</p>
+        </div>
+      </aside>
+    </div>
+    <div class="col-1-2">
+      <aside>
+        <h1 class="widget-title">Contact</h1>
+        <div class="widget-text">
+          
+            
+              <a href="https://github.com/zyydeer" class="icon icon-github" target="_blank">github</a>
+            
+              <a href="mailto:18222728313@163.com" class="icon icon-mail" target="_blank">mail</a>
+            
+          
+        </div>
+      </aside>
+    </div>
+
+  </div>
+</div>
+<!-- Footer -->
+
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+
+
+
+</body>
+
+</html>

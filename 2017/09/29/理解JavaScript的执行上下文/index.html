@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Zoey">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="JavaScript - Execution Context"/>
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="Zoey&#39;s -个人记录&amp;学习沉淀"/>
+  <!--Type page-->
+  
+      <meta property="og:type" content="article" />
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>JavaScript - Execution Context - Zoey&#39;s -个人记录&amp;学习沉淀</title>
+
+
+  <link rel="shortcut icon" href="http://www.icosky.com/icon/png/Nature/Solar%20System/Moon.png">
+
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!----------------------------
+  https://github.com/GallenHu/hexo-theme-Daily
+
+ _____            _   _
+|  __ \          (_) | |
+| |  | |   __ _   _  | |  _   _
+| |  | |  / _` | | | | | | | | |
+| |__| | | (_| | | | | | | |_| |
+|_____/   \__,_| |_| |_|  \__, |
+                          __/ |
+                         |___/
+
+    --------------------------->
+
+<link rel="alternate" href="/atom.xml" title="Zoey's -个人记录&学习沉淀" type="application/atom+xml">
+</head>
+
+
+<body>
+
+  <!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="https://i.bmp.ovh/imgs/2019/11/09336435ca42511b.png" alt="Zoey's -个人记录&学习沉淀" height="60">
+        
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  home
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  archive
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  about
+                
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            JavaScript - Execution Context
+            
+          </h1>
+          <p class="posted-on">
+          2017-09-29
+          </p>
+          <div class="tags-links">
+            
+              
+                <a href="/tags/技术/" rel="tag">
+                  技术
+                </a>
+              
+                <a href="/tags/前端/" rel="tag">
+                  前端
+                </a>
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content has_line_number">
+          <h1 id="执行上下文（Execution-Context）"><a href="#执行上下文（Execution-Context）" class="headerlink" title="执行上下文（Execution Context）"></a>执行上下文（Execution Context）</h1><p>在JavaScript中有三种代码运行环境：</p>
+<ul>
+<li>全局环境Global Code<br>JavaScript代码开始运行的默认环境</li>
+<li>函数环境Function Code<br>代码进入一个JavaScript函数</li>
+<li>Eval Code<br>使用eval()执行代码  </li>
+</ul>
+<p>为了表示不同的运行环境，JavaScript中有一个执行上下文（Execution context，EC）的概念。也就是说，当JavaScript代码执行的时候，会进入不同的执行上下文，这些执行上下文就构成了一个执行上下文栈（Execution context stack，ECS）。</p>
+<h1 id="变量对象（Variable-object）"><a href="#变量对象（Variable-object）" class="headerlink" title="变量对象（Variable object）"></a>变量对象（Variable object）</h1><p>我们知道 变量和执行上下文相关 那么它就应该知道数据储存在哪里以及如何访问这些数据，这种机制被称为变量对象（Variable Object）简称VO。<br>处理执行上下文代码分为两个阶段:<br>①进入执行上下文<br>②执行代码<br>当进入执行上下文时（代码执行前），变量对象VO 就会被下列属性填充：  </p>
+<ol>
+<li>函数的所有形参（如果是在函数执行上下文中）<br>每个形参都对应变量对象中的一个属性，该属性由形参名和对应的实参值构成，如果没有传递实参，那么该属性值就为 undefined</li>
+<li>所有函数声明（FunctionDeclaration, FD）<br>每个函数声明都对应变量对象中的一个属性，这个属性由一个函数对象的名称和值构成，如果变量对象中存在相同的属性名，则完全替换该属性。</li>
+<li>所有变量声明（var, VariableDeclaration）<br>每个变量声明都对应变量对象中的一个属性，该属性的键/值是变量名和 undefined，如果变量名与已经声明的形参或函数相同，则变量声明不会干扰已经存在的这类属性。</li>
+</ol>
+<h1 id="活动对象（Activation-object）"><a href="#活动对象（Activation-object）" class="headerlink" title="活动对象（Activation object）"></a>活动对象（Activation object）</h1><p>只有全局上下文的变量对象允许通过VO的属性名称间接访问；在函数执行上下文中，VO是不能直接访问的，此时由激活对象(简称AO)扮演VO的角色。激活对象 是在进入函数上下文时刻被创建的，它通过函数的arguments属性初始化。  </p>
+<p>Arguments Objects 是函数上下文里的激活对象AO中的内部对象，它包括下列属性：</p>
+<ol>
+<li>callee：指向当前函数的引用</li>
+<li>length： 真正传递的参数的个数</li>
+<li>properties-indexes：就是函数的参数值(按参数列表从左到右排列)  </li>
+</ol>
+<p>对于VO和AO的关系可以理解为，VO在不同的Execution Context中会有不同的表现：当在Global Execution Context中，可以直接使用VO；但是，在函数Execution Context中，AO就会被创建。</p>
+<h1 id="JS解析器做了什么"><a href="#JS解析器做了什么" class="headerlink" title="JS解析器做了什么"></a>JS解析器做了什么</h1><p>当一段JavaScript代码执行的时候，JavaScript解释器会创建执行上下文，其实这里会有两个阶段：</p>
+<p><strong>1.创建阶段</strong>（进入执行上下文）</p>
+<ul>
+<li>创建作用域链Scope chain</li>
+<li>创建VO/AO（variables, functions and arguments）</li>
+<li>设置this的值  </li>
+</ul>
+<p><strong>2.激活阶段</strong>（执行代码）<br>设置变量的值、函数的引用，然后解释/执行代码。  </p>
+<p>对于”创建VO/AO”这一步，JavaScript解释器主要做了下面的事情：  </p>
+<ul>
+<li>根据函数的参数，创建并初始化参数对象</li>
+</ul>
+<ul>
+<li><p>扫描函数内部代码，查找函数声明</p>
+<ul>
+<li>对于所有找到的函数声明，将函数名和函数引用存入VO/AO中</li>
+<li><strong>如果VO/AO中已经有同名的函数，那么就进行覆盖</strong>   </li>
+</ul>
+</li>
+<li><p>扫描函数内部代码，查找变量声明</p>
+<ul>
+<li>对于所有找到的变量声明，将变量名存入VO/AO中，并初始化为”undefined”</li>
+<li>如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性</li>
+</ul>
+</li>
+</ul>
+<h1 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h1><p>理解概念很枯燥，我们来分析实例。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">console.log(a);</span><br><span class="line">var a = 1;</span><br><span class="line">console.log(a);</span><br><span class="line">function a()&#123;alert(2)&#125;</span><br><span class="line">console.log(a);</span><br><span class="line">var a = 3;</span><br><span class="line">console.log(a);</span><br><span class="line">function a() &#123;alert(4);&#125;</span><br><span class="line">console.log(a);</span><br></pre></td></tr></table></figure>
+<h3 id="分析流程如下"><a href="#分析流程如下" class="headerlink" title="分析流程如下:"></a>分析流程如下:</h3><p><strong>进入执行上下文（创建阶段）填充vo对象</strong>   </p>
+<ol>
+<li><p>第二行有var定义的变量a，将其保存为a=undefined;</p>
+</li>
+<li><p>第4行有function声明和第二行的a同名此时由于函数的等级高于变量，于是就覆盖变量a，此时a= function a (){ alert(2); }</p>
+</li>
+<li><p>第六行又发现一个var定义的变量，名称与第四行的函数相同，但等级低，故a= function a (){ alert(2); }不变。</p>
+</li>
+<li><p>同理，由于第八行后定义，又为同一等级的函数，所以a= function a (){ alert(4); }</p>
+</li>
+<li><p>浏览器解析完成<br>此时的<br>vo= {<br>a:<br>}</p>
+<p><strong>执行代码（激活阶段）</strong></p>
+</li>
+<li><p>第一行 a应该是打印function a() {alert(4);}</p>
+</li>
+<li><p>第二行表达式修改了a的值，使其为1，所以第三行输出a=1</p>
+</li>
+<li><p>第四行定义了一个函数，但没有执行，所以第五行输出还为1</p>
+</li>
+<li><p>第六行表达式又一次更改了a的值，现在a=3，此时的a为一个数字，第七行输出3</p>
+</li>
+<li><p>同理，第八行没有做更改，第九行还是输出3</p>
+</li>
+</ol>
+
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="container">
+      
+<section id="comment">
+  <!-- <h1 class="title">Comments</h1> -->
+
+  
+</section>
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+        <div class="nav-previous">
+          <a href="/2017/09/29/对Js赋值运算的新认识/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> Older Posts</a>
+        </div>
+      
+      
+        <div class="nav-next">
+          <a href="/2017/09/28/box-shadow属性探秘/" rel="prev">Newer Posts <span class="meta-arraw meta-arraw-right"></span></a>
+        </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<div class="footer-widgets">
+  <div class="row inside-wrapper">
+    <div class="col-1-2">
+      <aside>
+        <h1 class="widget-title">关于本站</h1>
+        <div class="custom-widget-content">
+          
+          <p>个人记录，学习沉淀，温故知新。 Build My Lifelong System.</p>
+        </div>
+      </aside>
+    </div>
+    <div class="col-1-2">
+      <aside>
+        <h1 class="widget-title">Contact</h1>
+        <div class="widget-text">
+          
+            
+              <a href="https://github.com/zyydeer" class="icon icon-github" target="_blank">github</a>
+            
+              <a href="mailto:18222728313@163.com" class="icon icon-mail" target="_blank">mail</a>
+            
+          
+        </div>
+      </aside>
+    </div>
+
+  </div>
+</div>
+<!-- Footer -->
+
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+
+
+
+</body>
+
+</html>

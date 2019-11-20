@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Zoey">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="【数据结构】常用SQL总结"/>
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="Zoey&#39;s -个人记录&amp;学习沉淀"/>
+  <!--Type page-->
+  
+      <meta property="og:type" content="article" />
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>【数据结构】常用SQL总结 - Zoey&#39;s -个人记录&amp;学习沉淀</title>
+
+
+  <link rel="shortcut icon" href="http://www.icosky.com/icon/png/Nature/Solar%20System/Moon.png">
+
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!----------------------------
+  https://github.com/GallenHu/hexo-theme-Daily
+
+ _____            _   _
+|  __ \          (_) | |
+| |  | |   __ _   _  | |  _   _
+| |  | |  / _` | | | | | | | | |
+| |__| | | (_| | | | | | | |_| |
+|_____/   \__,_| |_| |_|  \__, |
+                          __/ |
+                         |___/
+
+    --------------------------->
+
+<link rel="alternate" href="/atom.xml" title="Zoey's -个人记录&学习沉淀" type="application/atom+xml">
+</head>
+
+
+<body>
+
+  <!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="https://i.bmp.ovh/imgs/2019/11/09336435ca42511b.png" alt="Zoey's -个人记录&学习沉淀" height="60">
+        
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  home
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  archive
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  about
+                
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            【数据结构】常用SQL总结
+            
+          </h1>
+          <p class="posted-on">
+          2018-04-17
+          </p>
+          <div class="tags-links">
+            
+              
+                <a href="/tags/技术/" rel="tag">
+                  技术
+                </a>
+              
+                <a href="/tags/SQL/" rel="tag">
+                  SQL
+                </a>
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content has_line_number">
+          <p><strong>SELECT</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT DISTINCT 列名称 FROM 表名称</span><br><span class="line"></span><br><span class="line">SELECT 列名称 FROM 表名称 WHERE 列 运算符 值</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>ORDER BY</strong><br>ORDER BY 语句用于根据指定的列对结果集进行排序。(DECS为逆序)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT Company, OrderNumber FROM Orders ORDER BY Company DESC</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>INSERT</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO table_name (列1, 列2,...) VALUES (值1, 值2,....)</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>UPDATE</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UPDATE 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值</span><br></pre></td></tr></table></figure>
+
+<p><strong>DELETE</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DELETE FROM 表名称 WHERE 列名称 = 值</span><br></pre></td></tr></table></figure>
+
+<p><strong>TOP</strong><br>TOP 子句用于规定要返回的记录的数目。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT TOP 2 * FROM Persons</span><br></pre></td></tr></table></figure>
+
+<p><strong>LIKE</strong><br>LIKE 操作符用于在 WHERE 子句中搜索列中的指定模式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Persons</span><br><span class="line">WHERE City LIKE &apos;%lon%&apos;</span><br></pre></td></tr></table></figure>
+
+<p><strong>IN</strong><br>IN 操作符允许我们在 WHERE 子句中规定多个值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM Persons</span><br><span class="line">WHERE LastName IN (&apos;Adams&apos;,&apos;Carter&apos;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>JOIN</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SELECT Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line">FROM Persons, Orders</span><br><span class="line">WHERE Persons.Id_P = Orders.Id_P </span><br><span class="line"></span><br><span class="line">SELECT Persons.LastName, Persons.FirstName, Orders.OrderNo</span><br><span class="line">FROM Persons</span><br><span class="line">INNER JOIN Orders</span><br><span class="line">ON Persons.Id_P = Orders.Id_P</span><br><span class="line">ORDER BY Persons.LastName</span><br></pre></td></tr></table></figure>
+
+<p>JOIN 类型，以及它们之间的差异。 </p>
+<ul>
+<li>JOIN: 如果表中有至少一个匹配，则返回行</li>
+<li>LEFT JOIN: 即使右表中没有匹配，也从左表返回所有的行</li>
+<li>RIGHT JOIN: 即使左表中没有匹配，也从右表返回所有的行</li>
+<li>FULL JOIN: 只要其中一个表中存在匹配，就返回行</li>
+</ul>
+<p><strong>UNION 和 UNION ALL</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">列出所有在中国和美国的不同的雇员名：</span><br><span class="line"></span><br><span class="line">SELECT E_Name FROM Employees_China</span><br><span class="line">UNION</span><br><span class="line">SELECT E_Name FROM Employees_USA</span><br><span class="line"></span><br><span class="line">//UNION ALL 命令会列出所有的值。</span><br></pre></td></tr></table></figure>
+
+<p><strong>SELECT INTO</strong><br>从一个表中选取数据，然后把数据插入另一个表中。<br>SELECT INTO 语句常用于创建表的备份复件或者用于对记录进行存档。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT *</span><br><span class="line">INTO Persons_backup</span><br><span class="line">FROM Persons</span><br></pre></td></tr></table></figure>
+
+<p>IN 子句可用于向另一个数据库中拷贝表：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT *</span><br><span class="line">INTO Persons IN &apos;Backup.mdb&apos;</span><br><span class="line">FROM Persons</span><br></pre></td></tr></table></figure>
+
+<p>如果我们希望拷贝某些域，可以在 SELECT 语句后列出这些域：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT LastName,FirstName</span><br><span class="line">INTO Persons_backup</span><br><span class="line">FROM Persons</span><br></pre></td></tr></table></figure>
+
+<p><strong>创建数据库</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE DATABASE database_name</span><br></pre></td></tr></table></figure>
+<p><strong>创建表</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE 表名称</span><br><span class="line">(</span><br><span class="line">列名称1 数据类型,</span><br><span class="line">列名称2 数据类型,</span><br><span class="line">列名称3 数据类型,</span><br><span class="line">....</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p><strong>SQL约束</strong><br>NOT NULL 约束强制列不接受 NULL 值。</p>
+<p>UNIQUE 约束唯一标识数据库表中的每条记录。</p>
+<p>UNIQUE 和 PRIMARY KEY 约束均为列或列集合提供了唯一性的保证。</p>
+<p>PRIMARY KEY 拥有自动定义的 UNIQUE 约束。</p>
+<p>每个表可以有多个 UNIQUE 约束，但是每个表只能有一个 PRIMARY KEY 约束。</p>
+<p><strong>PRIMARY KEY</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PRIMARY KEY (Id_P)</span><br><span class="line"></span><br><span class="line">CONSTRAINT pk_PersonID PRIMARY KEY (Id_P,LastName) //命名 PRIMARY KEY 约束，以及为多个列定义 PRIMARY KEY 约束</span><br><span class="line"></span><br><span class="line">ADD PRIMARY KEY (Id_P) //在表已存在的情况下为 &quot;Id_P&quot; 列创建 PRIMARY KEY 约束</span><br><span class="line"></span><br><span class="line">DROP PRIMARY KEY //撤销</span><br></pre></td></tr></table></figure>
+<p><strong>FOREIGN KEY</strong><br>一个表中的 FOREIGN KEY 指向另一个表中的 PRIMARY KEY。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FOREIGN KEY (Id_P) REFERENCES Persons(Id_P)</span><br></pre></td></tr></table></figure>
+
+<p><strong>CHECK</strong> 约束<br>  用于限制列中的值的范围。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">CHECK (Id_P&gt;0) //创建表时限制</span><br><span class="line"></span><br><span class="line">ADD CHECK (Id_P&gt;0)//表已存在的情况下</span><br></pre></td></tr></table></figure>
+<p><strong>CREATE INDEX</strong> 语句用于在表中创建索引。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX index_name</span><br><span class="line">ON table_name (column_name)</span><br></pre></td></tr></table></figure>
+<p><strong>Auto-increment</strong> 会在新记录插入表中时生成一个唯一的数字。</p>
+<p><strong>ALTER TABLE</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE table_name</span><br><span class="line">ADD column_name datatype</span><br></pre></td></tr></table></figure>
+
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="container">
+      
+<section id="comment">
+  <!-- <h1 class="title">Comments</h1> -->
+
+  
+</section>
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+        <div class="nav-previous">
+          <a href="/2019/09/23/So-You’re-Lost-in-Your-Twenties/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> Older Posts</a>
+        </div>
+      
+      
+        <div class="nav-next">
+          <a href="/2018/03/10/PHP函数方法学习总结/" rel="prev">Newer Posts <span class="meta-arraw meta-arraw-right"></span></a>
+        </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<div class="footer-widgets">
+  <div class="row inside-wrapper">
+    <div class="col-1-2">
+      <aside>
+        <h1 class="widget-title">关于本站</h1>
+        <div class="custom-widget-content">
+          
+          <p>个人记录，学习沉淀，温故知新。 Build My Lifelong System.</p>
+        </div>
+      </aside>
+    </div>
+    <div class="col-1-2">
+      <aside>
+        <h1 class="widget-title">Contact</h1>
+        <div class="widget-text">
+          
+            
+              <a href="https://github.com/zyydeer" class="icon icon-github" target="_blank">github</a>
+            
+              <a href="mailto:18222728313@163.com" class="icon icon-mail" target="_blank">mail</a>
+            
+          
+        </div>
+      </aside>
+    </div>
+
+  </div>
+</div>
+<!-- Footer -->
+
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+
+
+
+</body>
+
+</html>

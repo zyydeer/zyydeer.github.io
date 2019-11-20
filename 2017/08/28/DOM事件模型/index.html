@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Zoey">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="DOM事件模型"/>
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="Zoey&#39;s -个人记录&amp;学习沉淀"/>
+  <!--Type page-->
+  
+      <meta property="og:type" content="article" />
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>DOM事件模型 - Zoey&#39;s -个人记录&amp;学习沉淀</title>
+
+
+  <link rel="shortcut icon" href="http://www.icosky.com/icon/png/Nature/Solar%20System/Moon.png">
+
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!----------------------------
+  https://github.com/GallenHu/hexo-theme-Daily
+
+ _____            _   _
+|  __ \          (_) | |
+| |  | |   __ _   _  | |  _   _
+| |  | |  / _` | | | | | | | | |
+| |__| | | (_| | | | | | | |_| |
+|_____/   \__,_| |_| |_|  \__, |
+                          __/ |
+                         |___/
+
+    --------------------------->
+
+<link rel="alternate" href="/atom.xml" title="Zoey's -个人记录&学习沉淀" type="application/atom+xml">
+</head>
+
+
+<body>
+
+  <!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="https://i.bmp.ovh/imgs/2019/11/09336435ca42511b.png" alt="Zoey's -个人记录&学习沉淀" height="60">
+        
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  home
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  archive
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  about
+                
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            DOM事件模型
+            
+          </h1>
+          <p class="posted-on">
+          2017-08-28
+          </p>
+          <div class="tags-links">
+            
+              
+                <a href="/tags/技术/" rel="tag">
+                  技术
+                </a>
+              
+                <a href="/tags/前端/" rel="tag">
+                  前端
+                </a>
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content has_line_number">
+          <h1 id="一、事件与事件流"><a href="#一、事件与事件流" class="headerlink" title="一、事件与事件流"></a>一、事件与事件流</h1><p><strong>事件</strong>是与浏览器或文档交互的瞬间，如点击按钮，填写表格等，它是JS与HTML之间交互的桥梁。<br>DOM是树形结构，如果同时给父子节点都绑定事件时，当触发子节点的时候，这两个事件的发生顺序如何决定?这就涉及到事件流的概念，它描述的是页面中接受事件的顺序。</p>
+<p><strong>事件流</strong>描述的是从页面中接收事件的顺序。</p>
+<p>IE的事件流是事件冒泡：事件开始时由具体元素接收，然后逐级向上传播直到document对象：即 div——body——html——document；<br>IE9+/现代浏览器支持事件捕获：由document对象先接收到事件，然后沿DOM树依次向下一直传播到事件的实际目标：即 document——html——body——div；</p>
+<p>DOM事件流规定的三个阶段：事件捕获阶段，处于目标阶段，事件冒泡阶段。</p>
+<p>从DOM事件流模型可以看出，捕获阶段的事件处理函数，一定比冒泡阶段的事件处理函数先执行。</p>
+<h1 id="二、事件处理程序"><a href="#二、事件处理程序" class="headerlink" title="二、事件处理程序"></a>二、事件处理程序</h1><h2 id="DOM0级事件处理程序"><a href="#DOM0级事件处理程序" class="headerlink" title="DOM0级事件处理程序"></a>DOM0级事件处理程序</h2><p>  ● 写在html标签内，缺点：不好维护</p>
+<p>  ● 将一个函数赋值给一个事件处理属性<br>  例：btn.onClick = function() {}</p>
+<p>删除DOM0事件处理程序，只要将对应事件属性置为null即可。<br>btn.onclick = null;</p>
+<h2 id="DOM2级事件处理程序"><a href="#DOM2级事件处理程序" class="headerlink" title="DOM2级事件处理程序"></a>DOM2级事件处理程序</h2><p>DOM2级事件定义了两个方法：addEventListener()和removeEventListener()。<br>接收三个参数：type、handler、useCapture<br>useCapture=false意味着：将事件处理函数加入到冒泡阶段，在冒泡阶段被调用<br>useCapture=true意味着：将事件处理函数加入到捕获阶段，在捕获阶段被调用<br>同一个事件处理函数可以绑定2次,一次用于事件捕获，一次用于事件冒泡。</p>
+<h2 id="IE下（DOM2）事件处理程序"><a href="#IE下（DOM2）事件处理程序" class="headerlink" title="IE下（DOM2）事件处理程序"></a>IE下（DOM2）事件处理程序</h2><p>attachEvent()添加事件  detachEvent()删除事件<br>接收相同的两个参数：’on‘ + type   、handler<br>IE8级更早版本只支持冒泡型事件，所以attachEvent添加的事件都会被添加到冒泡阶段。<br>IE下使用attachEvent()绑定事件时，事件处理函数中的this指的是window对象。</p>
+<h2 id="跨浏览器的事件处理程序"><a href="#跨浏览器的事件处理程序" class="headerlink" title="跨浏览器的事件处理程序"></a>跨浏览器的事件处理程序</h2><p>跨浏览器的事件处理函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">var eventUtil = &#123;</span><br><span class="line">    // 添加句柄</span><br><span class="line">    addHandler: function(element, type, handler) &#123;</span><br><span class="line">        if (element.addEventListener) &#123;</span><br><span class="line">            element.addEventListener(type, handler, false);</span><br><span class="line">        &#125; else if (element.attachEvent) &#123;</span><br><span class="line">            element.attachEvent(&apos;on&apos; + type, handler);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            element[&apos;on&apos; + type] = handler;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    // 删除句柄</span><br><span class="line">    removeHandler: function(element, type, handler) &#123;</span><br><span class="line">        if (element.removeEventListener) &#123;</span><br><span class="line">            element.removeEventListener(type, handler, false);</span><br><span class="line">        &#125; else if (element.detachEvent) &#123;</span><br><span class="line">            element.detachEvent(&apos;on&apos; + type, handler);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            element[&apos;on&apos; + type] = null;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    //获取事件</span><br><span class="line">    getEvent: function(event) &#123;</span><br><span class="line">        return event ? event : window.event;</span><br><span class="line">    &#125;,</span><br><span class="line">    //获取事件类型</span><br><span class="line">    getType: function(event) &#123;</span><br><span class="line">        return event.type;</span><br><span class="line">    &#125;,</span><br><span class="line">    //获取事件源</span><br><span class="line">    getElement: function(event) &#123;</span><br><span class="line">        return event.target || event.srcElement;</span><br><span class="line">    &#125;,</span><br><span class="line">    //阻止默认事件比如a链接跳转</span><br><span class="line">    preventDefault: function(event) &#123;</span><br><span class="line">        if (event.preventDefault) &#123;</span><br><span class="line">            event.preventDefault();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            event.returnValue = false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    //阻止事件冒泡</span><br><span class="line">    stopPropagation: function(event) &#123;</span><br><span class="line">        if (event.stopPropagation) &#123;</span><br><span class="line">            event.stopPropagation();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            event.cancelBubble = true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="DOM0和DOM2事件的区别"><a href="#DOM0和DOM2事件的区别" class="headerlink" title="DOM0和DOM2事件的区别"></a>DOM0和DOM2事件的区别</h2><ol>
+<li>DOM0中事件一旦发生就直接调用事件句柄，无传播过程。在DOM2中有一个事件的传播过程。包括事件捕获，目标元素的事件处理程序运行，事件冒泡。</li>
+<li>一个DOM对象注册多个类型相同的事件时，DOM0级中会发生事件的覆盖，而DOM2级中则会依次执行各个事件函数。</li>
+</ol>
+<h3 id="事件处理函数的执行顺序："><a href="#事件处理函数的执行顺序：" class="headerlink" title="事件处理函数的执行顺序："></a>事件处理函数的执行顺序：</h3><p><strong>捕获阶段的处理函数最先执行，其次是目标阶段的处理函数，最后是冒泡阶段的处理函数。目标阶段的处理函数，先注册的先执行，后注册的后执行。</strong></p>
+<p>当用户通过鼠标操作触发 click 事件时，基本的事件触发流程为：<br>MouseDown 事件 –&gt;（ ie下Focus事件）–&gt; MouseUp 事件 –&gt; Click 事件。</p>
+<p>若被点击的元素可以获得焦点，并且当前还没有获得焦点时，会在 MouseDown 事件之后默认触发 Focus 事件，再依次触发其后的 MouseUp 和 Click 事件。<br>非 IE 浏览器中，此情况下元素无法获得焦点，也不会触发 Focus 事件。</p>
+<h1 id="三、事件对象"><a href="#三、事件对象" class="headerlink" title="三、事件对象"></a>三、事件对象</h1><h3 id="DOM中的事件对象属性"><a href="#DOM中的事件对象属性" class="headerlink" title="DOM中的事件对象属性"></a>DOM中的事件对象属性</h3><pre><code>○ type: 获取事件类型
+○ target：事件目标
+○ stopPropagation() 阻止事件传播（冒泡+捕获）
+○ preventDefault() 阻止事件的默认行为</code></pre><h3 id="IE中的事件对象属性"><a href="#IE中的事件对象属性" class="headerlink" title="IE中的事件对象属性"></a>IE中的事件对象属性</h3><pre><code>○ type: 获取事件类型
+○ srcElement：事件目标
+○ cancelBubble=true  阻止事件冒泡
+○ returnValue=false   阻止事件的默认行为</code></pre><p>IE8以及以前可以通过 window.event.cancelBubble=true阻止事件的冒泡；<br>IE9+/FF/Chrome通过event.stopPropagation()阻止事件的继续传播（冒泡或捕获都支持）。</p>
+<h1 id="四、事件委托"><a href="#四、事件委托" class="headerlink" title="四、事件委托"></a>四、事件委托</h1><p>事件委托利用了事件冒泡，只用一个事件处理程序就可以管理某一类型的所有事件。</p>
+<p><strong>使用场景：</strong></p>
+<ol>
+<li>给许多子元素绑定相同的事件，比如ul的li元素，或者table的td元素。可以大量节省内存，减少事件注册。</li>
+<li>可以实现当新增子对象时无需再次绑定事件，对于动态内容极其合适。</li>
+</ol>
+<p><strong>优点：</strong></p>
+<ul>
+<li>document对象很快就可以访问，而且可以在页面周期的任何时段为它添加事件处理程序。只要可单击的元素呈现在页面上，就可以立即具备适当的功能。</li>
+<li>在页面中设置事件处理程序所需的时间更少。只添加一个事件处理程序所需的DOM引用更少，所花时间也更少。</li>
+<li>整个页面占用内存空间更少，能够提升整体性能。</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<p>如果把所有事件都用事件代理，可能会出现本不该被触发的事件被绑定上了事件的情况。</p>
+
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="container">
+      
+<section id="comment">
+  <!-- <h1 class="title">Comments</h1> -->
+
+  
+</section>
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+        <div class="nav-previous">
+          <a href="/2017/09/10/学习flex布局/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> Older Posts</a>
+        </div>
+      
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<div class="footer-widgets">
+  <div class="row inside-wrapper">
+    <div class="col-1-2">
+      <aside>
+        <h1 class="widget-title">关于本站</h1>
+        <div class="custom-widget-content">
+          
+          <p>个人记录，学习沉淀，温故知新。 Build My Lifelong System.</p>
+        </div>
+      </aside>
+    </div>
+    <div class="col-1-2">
+      <aside>
+        <h1 class="widget-title">Contact</h1>
+        <div class="widget-text">
+          
+            
+              <a href="https://github.com/zyydeer" class="icon icon-github" target="_blank">github</a>
+            
+              <a href="mailto:18222728313@163.com" class="icon icon-mail" target="_blank">mail</a>
+            
+          
+        </div>
+      </aside>
+    </div>
+
+  </div>
+</div>
+<!-- Footer -->
+
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+
+
+
+</body>
+
+</html>

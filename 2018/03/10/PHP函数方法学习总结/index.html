@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Zoey">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="PHP函数方法学习与总结"/>
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="Zoey&#39;s -个人记录&amp;学习沉淀"/>
+  <!--Type page-->
+  
+      <meta property="og:type" content="article" />
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>PHP函数方法学习与总结 - Zoey&#39;s -个人记录&amp;学习沉淀</title>
+
+
+  <link rel="shortcut icon" href="http://www.icosky.com/icon/png/Nature/Solar%20System/Moon.png">
+
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!----------------------------
+  https://github.com/GallenHu/hexo-theme-Daily
+
+ _____            _   _
+|  __ \          (_) | |
+| |  | |   __ _   _  | |  _   _
+| |  | |  / _` | | | | | | | | |
+| |__| | | (_| | | | | | | |_| |
+|_____/   \__,_| |_| |_|  \__, |
+                          __/ |
+                         |___/
+
+    --------------------------->
+
+<link rel="alternate" href="/atom.xml" title="Zoey's -个人记录&学习沉淀" type="application/atom+xml">
+</head>
+
+
+<body>
+
+  <!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="https://i.bmp.ovh/imgs/2019/11/09336435ca42511b.png" alt="Zoey's -个人记录&学习沉淀" height="60">
+        
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  home
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  archive
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  about
+                
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            PHP函数方法学习与总结
+            
+          </h1>
+          <p class="posted-on">
+          2018-03-10
+          </p>
+          <div class="tags-links">
+            
+              
+                <a href="/tags/技术/" rel="tag">
+                  技术
+                </a>
+              
+                <a href="/tags/后端/" rel="tag">
+                  后端
+                </a>
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content has_line_number">
+          <h1 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h1><h3 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h3><h4 id="Immutable"><a href="#Immutable" class="headerlink" title="Immutable"></a>Immutable</h4><h5 id="map"><a href="#map" class="headerlink" title="map"></a>map</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$f = <span class="function"><span class="keyword">function</span><span class="params">($x, ...$ys)</span> </span>&#123;&#125;;</span><br><span class="line">array_map($f, $xs);</span><br><span class="line">array_map($f, $xs, ...$yss);</span><br><span class="line">array_map(<span class="keyword">null</span>, $xs);</span><br><span class="line">array_map(<span class="keyword">null</span>, $xs, ...$yss);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">xs.map(f)</span><br><span class="line">xs.map(<span class="function">(<span class="params">x, i</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> ys = yss.map(<span class="function">(<span class="params">ys, i</span>) =&gt;</span> ys[i])</span><br><span class="line">    <span class="comment">// ..</span></span><br><span class="line">&#125;)</span><br><span class="line">[xs]</span><br><span class="line">[xs, ...yss]</span><br></pre></td></tr></table></figure>
+
+<h5 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array_filter($xs, $f);</span><br><span class="line">array_filter($xs, <span class="keyword">null</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xs.filter(f)</span><br><span class="line">xs.filter(id)</span><br></pre></td></tr></table></figure>
+
+<h5 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array_reduce($xs, $f, $init);</span><br><span class="line">array_reduce(array_reverse($xs), $f, $init);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xs.reduce(f, init)</span><br><span class="line">xs.reduceRight(f, init)</span><br></pre></td></tr></table></figure>
+
+<h5 id="traverse"><a href="#traverse" class="headerlink" title="traverse"></a>traverse</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$f = <span class="function"><span class="keyword">function</span><span class="params">($x, $key)</span> </span>&#123;&#125;</span><br><span class="line">array_walk($xs, $f);</span><br><span class="line"><span class="keyword">foreach</span> ($xs <span class="keyword">as</span> $x)</span><br><span class="line"><span class="keyword">foreach</span> ($xs <span class="keyword">as</span> $key =&gt; $val)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xs.forEach(f)</span><br></pre></td></tr></table></figure>
+
+<h5 id="slice"><a href="#slice" class="headerlink" title="slice"></a>slice</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_slice($xs, $start, $len);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> end = start + len</span><br><span class="line">xs.slice(start, end)</span><br></pre></td></tr></table></figure>
+
+<h5 id="find"><a href="#find" class="headerlink" title="find"></a>find</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_search($x, $xs); <span class="comment">// return false if not found</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">xs.indexOf(x)</span><br><span class="line">xs.find(f)</span><br><span class="line">xs.findIndex(f)</span><br><span class="line">xs.includes(x)</span><br></pre></td></tr></table></figure>
+
+<h5 id="length"><a href="#length" class="headerlink" title="length"></a>length</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">count($xs);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xs.length</span><br></pre></td></tr></table></figure>
+
+<h5 id="has"><a href="#has" class="headerlink" title="has"></a>has</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array_key_exists($key, $xs);</span><br><span class="line"><span class="keyword">isset</span>($xs[$key]); <span class="comment">// return false if null</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Reflect</span>.has(xs, key)</span><br><span class="line">!!xs[key]</span><br></pre></td></tr></table></figure>
+
+<h5 id="keys-values"><a href="#keys-values" class="headerlink" title="keys / values"></a>keys / values</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array_keys($xs);</span><br><span class="line">array_values($xs);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.keys(xs)</span><br><span class="line"><span class="built_in">Object</span>.values(xs)</span><br></pre></td></tr></table></figure>
+
+<h5 id="unique"><a href="#unique" class="headerlink" title="unique"></a>unique</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_unique($xs);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[...new <span class="built_in">Set</span>(xs)]</span><br></pre></td></tr></table></figure>
+
+<h5 id="fill"><a href="#fill" class="headerlink" title="fill"></a>fill</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_fill($start, $len, $x); <span class="comment">// fill by ref</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> end = start + len</span><br><span class="line"><span class="built_in">Array</span>(end).fill(x, start, end) <span class="comment">// fill by ref</span></span><br><span class="line"><span class="built_in">Array</span>.from(<span class="built_in">Array</span>(end), (_, i) =&gt; start &lt;= i &amp;&amp; i &lt; end ? x : <span class="literal">undefined</span>) <span class="comment">// fill by val</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="concat-merge"><a href="#concat-merge" class="headerlink" title="concat / merge"></a>concat / merge</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_merge(...$xss);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[].concat(...xss)</span><br><span class="line"><span class="built_in">Object</span>.assign(&#123;&#125;, ...xss)</span><br></pre></td></tr></table></figure>
+
+<h5 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_combine($xs, $ys);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xs.reduce(<span class="function">(<span class="params">acc, x, i</span>) =&gt;</span> (&#123; ...acc, &#123; [x]: ys[i] &#125; &#125;), &#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<h5 id="sum-product"><a href="#sum-product" class="headerlink" title="sum / product"></a>sum / product</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">array_sum($xs);</span><br><span class="line">array_product($xs);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">xs.reduce(<span class="function">(<span class="params">acc, x</span>) =&gt;</span> acc + x, <span class="number">0</span>)</span><br><span class="line">xs.reduce(<span class="function">(<span class="params">acc, x</span>) =&gt;</span> acc * x, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="count"><a href="#count" class="headerlink" title="count"></a>count</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_count_values($xs);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xs.reduce(<span class="function">(<span class="params">acc, x</span>) =&gt;</span> (<span class="built_in">Reflect</span>.has(acc, x) ? acc[x]++ : (acc[x] = <span class="number">1</span>)) &amp;&amp; acc, &#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Mutable"><a href="#Mutable" class="headerlink" title="Mutable"></a>Mutable</h4><h5 id="push-pop-unshift-shift"><a href="#push-pop-unshift-shift" class="headerlink" title="push / pop / unshift / shift"></a>push / pop / unshift / shift</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$xs[] = $x;</span><br><span class="line">array_push($xs, ...$ys);</span><br><span class="line">array_pop($xs);</span><br><span class="line">array_unshift($xs, ...$ys);</span><br><span class="line">array_shift($xs);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Mutable</span></span><br><span class="line">xs.push(...ys)</span><br><span class="line">xs.pop()</span><br><span class="line">xs.unshift(...ys)</span><br><span class="line">xs.shift()</span><br><span class="line"><span class="comment">// Immutable</span></span><br><span class="line">[...xs, ...ys]</span><br><span class="line">xs.slice(<span class="number">0</span>, <span class="number">-1</span>)</span><br><span class="line">[...ys, ...xs]</span><br><span class="line">xs.slice(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h5 id="splice"><a href="#splice" class="headerlink" title="splice"></a>splice</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array_splice($xs, $start, $len, $ys);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xs.splice(start, len, ...ys)</span><br></pre></td></tr></table></figure>
+
+<h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><h5 id="split"><a href="#split" class="headerlink" title="split"></a>split</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explode($seperator, $str);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str.split(seperator)</span><br></pre></td></tr></table></figure>
+
+<h5 id="join"><a href="#join" class="headerlink" title="join"></a>join</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">implode($seperator, $xs);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xs.join(seperator)</span><br></pre></td></tr></table></figure>
+
+<h5 id="length-1"><a href="#length-1" class="headerlink" title="length"></a>length</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strlen($str);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">str.length</span><br></pre></td></tr></table></figure>
+
+<h5 id="substr"><a href="#substr" class="headerlink" title="substr"></a>substr</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">substr($str, $start, $len);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> end = start + len</span><br><span class="line">str.slice(start, end)</span><br><span class="line">str.substr(start, len)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h3><h5 id="curry"><a href="#curry" class="headerlink" title="curry"></a>curry</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$curry = <span class="function"><span class="keyword">function</span><span class="params">($f, $len = <span class="number">-1</span>)</span> <span class="title">use</span><span class="params">(&amp;$curry)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!~$len) &#123;</span><br><span class="line">        $ref = <span class="keyword">new</span> ReflectionFunction($f);</span><br><span class="line">        $len = $ref -&gt; getNumberOfParameters();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">(...$args)</span> <span class="title">use</span><span class="params">($curry, $f, $len)</span> </span>&#123;</span><br><span class="line">        $sub = count($args);</span><br><span class="line">        <span class="keyword">return</span> $sub &lt; $len ? $curry(<span class="function"><span class="keyword">function</span><span class="params">(...$rest)</span> <span class="title">use</span><span class="params">($f, $args)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> $f(...$args, ...$rest);</span><br><span class="line">        &#125;, $len - $sub) : $f(...$args);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> curry = <span class="function">(<span class="params">f, len = f.length</span>) =&gt;</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> sub = args.length</span><br><span class="line">    <span class="keyword">return</span> sub &lt; len ? curry(<span class="function">(<span class="params">...rest</span>) =&gt;</span> f(...args, ...rest), len - sub) : f(...args)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="compose"><a href="#compose" class="headerlink" title="compose"></a>compose</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$compose = <span class="function"><span class="keyword">function</span><span class="params">(...$funcs)</span> </span>&#123;</span><br><span class="line">    $len = count($funcs);</span><br><span class="line">    <span class="keyword">return</span> $len ? <span class="function"><span class="keyword">function</span><span class="params">(...$args)</span> <span class="title">use</span><span class="params">($funcs, $len)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> array_reduce(array_reverse(array_slice($funcs, <span class="number">0</span>, <span class="number">-1</span>)), <span class="function"><span class="keyword">function</span><span class="params">($composed, $f)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> $f($composed);</span><br><span class="line">        &#125;, $funcs[$len - <span class="number">1</span>](...$args));</span><br><span class="line">    &#125; : <span class="function"><span class="keyword">function</span><span class="params">($arg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> $arg;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> compose = <span class="function">(<span class="params">...funcs</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> len = funcs.length</span><br><span class="line">    <span class="keyword">return</span> len ? <span class="function">(<span class="params">...args</span>) =&gt;</span> funcs.slice(<span class="number">0</span>, <span class="number">-1</span>).reduceRight(</span><br><span class="line">        (composed, f) =&gt; f(composed), funcs[len - <span class="number">1</span>](...args)</span><br><span class="line">    ) : <span class="function"><span class="params">arg</span> =&gt;</span> arg</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Yii"><a href="#Yii" class="headerlink" title="Yii"></a>Yii</h1><h2 id="WebApplication"><a href="#WebApplication" class="headerlink" title="WebApplication"></a>WebApplication</h2><h5 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Yii::createWebApplication($config) -&gt; run();</span><br></pre></td></tr></table></figure>
+
+<h5 id="retrieve"><a href="#retrieve" class="headerlink" title="retrieve"></a>retrieve</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Yii::app() <span class="comment">// Singleton</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><h5 id="retrieve-1"><a href="#retrieve-1" class="headerlink" title="retrieve"></a>retrieve</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Yii::app() -&gt; $component;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Controller"><a href="#Controller" class="headerlink" title="Controller"></a>Controller</h2><h4 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h4><h5 id="default"><a href="#default" class="headerlink" title="default"></a>default</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"https://hostname/index.php?r=$module/$controller/$action&amp;param=$param..."</span></span><br><span class="line">$url = <span class="keyword">$this</span> -&gt; createUrl($route, $param);</span><br></pre></td></tr></table></figure>
+
+<h5 id="User-friendly"><a href="#User-friendly" class="headerlink" title="User-friendly"></a>User-friendly</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config.php</span></span><br><span class="line"><span class="string">'urlManager'</span> =&gt; <span class="keyword">array</span>(</span><br><span class="line">    <span class="string">'urlFormat'</span> =&gt; <span class="string">'path'</span>,</span><br><span class="line">    <span class="string">'showScriptName'</span> =&gt; <span class="keyword">false</span>,</span><br><span class="line">    <span class="string">'rules'</span>: <span class="keyword">array</span>(</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    )</span><br><span class="line">)</span><br><span class="line"><span class="string">"https://hostname/$module/$controller/$action?param=$param..."</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CommonController</span> <span class="keyword">extends</span> <span class="title">CController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actions</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">array</span>(</span><br><span class="line">            <span class="string">'edit'</span> =&gt; <span class="string">'application.controllers.common.EditAction'</span>,</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">actionCreate</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EditAction</span> <span class="keyword">extends</span> <span class="title">CAction</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Filter-Middleware"><a href="#Filter-Middleware" class="headerlink" title="Filter (Middleware)"></a>Filter (Middleware)</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CommonController</span> <span class="keyword">extends</span> <span class="title">CController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">filters</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">array</span>(</span><br><span class="line">            <span class="string">'logger - index'</span>,</span><br><span class="line">            <span class="keyword">array</span>(<span class="string">'application.filters.HelloFilter + index'</span>),</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> filterLogger($filterChain) &#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'before'</span>;</span><br><span class="line">        $filterChain -&gt; run();</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'after'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloFilter</span> <span class="keyword">extends</span> <span class="title">CFilter</span> </span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">preFilter</span><span class="params">($filterChain)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'Hello'</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>; <span class="comment">// this -&gt; filter invoke $filterChain -&gt; run()</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">postFilter</span><span class="params">($filterChain)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'World'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Comparion</span></span><br><span class="line"><span class="comment">// Koa: Expressive HTTP middleware framework for node.js</span></span><br><span class="line"><span class="keyword">import</span> Koa <span class="keyword">from</span> <span class="string">'koa'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="keyword">new</span> Koa()</span><br><span class="line"></span><br><span class="line">app.use(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params">ctx, next</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'before'</span>)</span><br><span class="line">    <span class="keyword">await</span> next()</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'after'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.use(<span class="function"><span class="params">ctx</span> =&gt;</span> ctx.body = <span class="string">'Hello World'</span>)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3000</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Dependency-Injection"><a href="#Dependency-Injection" class="headerlink" title="Dependency Injection"></a>Dependency Injection</h4><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Controller</span> <span class="keyword">extends</span> <span class="title">CController</span> </span>&#123;</span><br><span class="line">	<span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__get</span><span class="params">($name)</span> </span>&#123;</span><br><span class="line">		$factory = Factory::getInstance();</span><br><span class="line">		<span class="keyword">$this</span> -&gt; $name = $factory -&gt; getClass($name);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">$this</span> -&gt; $name;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__set</span><span class="params">($name, $value)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">$this</span> -&gt; $name = $value;</span><br><span class="line">	&#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h2><h3 id="Db"><a href="#Db" class="headerlink" title="Db"></a>Db</h3><h5 id="multiple-databases"><a href="#multiple-databases" class="headerlink" title="multiple databases"></a>multiple databases</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config.php</span></span><br><span class="line"><span class="string">'db_common'</span> =&gt; <span class="keyword">array</span>(</span><br><span class="line">    <span class="string">'class'</span> =&gt; <span class="string">'CDbConnection'</span>,</span><br><span class="line">    <span class="comment">// other config options</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h5 id="autoConnect"><a href="#autoConnect" class="headerlink" title="autoConnect"></a>autoConnect</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$connection = Yii::app() -&gt; db;</span><br></pre></td></tr></table></figure>
+
+<h5 id="connect"><a href="#connect" class="headerlink" title="connect"></a>connect</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$connection = <span class="keyword">new</span> CDbConnection($dsn, $username, $password);</span><br><span class="line">$connection -&gt; active = <span class="keyword">true</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Database-Access-Objects"><a href="#Database-Access-Objects" class="headerlink" title="Database Access Objects"></a>Database Access Objects</h4><h5 id="command"><a href="#command" class="headerlink" title="command"></a>command</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$command = $connection -&gt; createCommand($sql);</span><br></pre></td></tr></table></figure>
+
+<h5 id="execute"><a href="#execute" class="headerlink" title="execute"></a>execute</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$command -&gt; execute();</span><br></pre></td></tr></table></figure>
+
+<h5 id="query"><a href="#query" class="headerlink" title="query"></a>query</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$dataReader = $command -&gt; query(); <span class="comment">// forward-only stream</span></span><br><span class="line">$data = $dataReader -&gt; readAll();</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$data = $command -&gt; queryAll();</span><br><span class="line">$data = $command -&gt; queryRow();</span><br><span class="line">$data = $command -&gt; queryColumn();</span><br><span class="line">$data = $command -&gt; queryScalar();</span><br></pre></td></tr></table></figure>
+
+<h5 id="transaction"><a href="#transaction" class="headerlink" title="transaction"></a>transaction</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$transaction = $connection -&gt; beginTransaction();</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// sql</span></span><br><span class="line">    $transaction -&gt; commit();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">catch</span> (<span class="keyword">Exception</span> $err) &#123;</span><br><span class="line">    $transaction -&gt; rollback();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$sql = <span class="string">'SELECT name FROM students WHERE id=:id'</span>;</span><br><span class="line">$command = $connection -&gt; createCommand($sql);</span><br><span class="line">$command -&gt; bindParam(<span class="string">':id'</span>, $id);</span><br><span class="line">$command -&gt; bindValue(<span class="string">':id'</span>, <span class="number">0</span>);</span><br><span class="line">$data = $command -&gt; queryRow();</span><br></pre></td></tr></table></figure>
+
+<h4 id="Query-Builder"><a href="#Query-Builder" class="headerlink" title="Query Builder"></a>Query Builder</h4><h5 id="command-1"><a href="#command-1" class="headerlink" title="command"></a>command</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$command = $connection -&gt; createCommand()</span><br><span class="line">    -&gt; select(<span class="string">'name'</span>)</span><br><span class="line">    -&gt; from(<span class="string">'students'</span>)</span><br><span class="line">    -&gt; where(<span class="string">'id=:id'</span>, <span class="keyword">array</span>(<span class="string">':id'</span> =&gt; $id));</span><br></pre></td></tr></table></figure>
+
+<h4 id="Active-Record"><a href="#Active-Record" class="headerlink" title="Active Record"></a>Active Record</h4><h5 id="model"><a href="#model" class="headerlink" title="model"></a>model</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">CActiveRecord</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">model</span><span class="params">($className=__CLASS__)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">parent</span>::model($className);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">tableName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'students'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">primaryKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'id'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">rules</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">array</span>(</span><br><span class="line">            <span class="keyword">array</span>(<span class="string">'name'</span>, <span class="string">'length'</span>, <span class="string">'max'</span> =&gt; <span class="number">30</span>),</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">relations</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">array</span>(</span><br><span class="line">            <span class="string">'papers'</span> =&gt; <span class="keyword">array</span>(<span class="keyword">self</span>::HAS_MANY, <span class="string">'Paper'</span>, <span class="string">'author_id'</span>),</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Paper</span> <span class="keyword">extends</span> <span class="title">CActiveRecord</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">model</span><span class="params">($className=__CLASS__)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">parent</span>::model($className);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">tableName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'papers'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">primaryKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'id'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">relations</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">array</span>(</span><br><span class="line">            <span class="string">'author'</span> =&gt; <span class="keyword">array</span>(<span class="keyword">self</span>::BELONGS_TO, <span class="string">'Student'</span>, <span class="string">'author_id'</span>),</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="connection"><a href="#connection" class="headerlink" title="connection"></a>connection</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$connection = Student::model() -&gt; dbConnection;</span><br></pre></td></tr></table></figure>
+
+<h5 id="create"><a href="#create" class="headerlink" title="create"></a>create</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$student = <span class="keyword">new</span> Student;</span><br><span class="line">$student -&gt; id = <span class="number">0</span>;</span><br><span class="line">$student -&gt; name = <span class="string">'yanshi'</span>;</span><br><span class="line">$student -&gt; save(); <span class="comment">// validation: invoke $student -&gt; rules()</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="retrieve-2"><a href="#retrieve-2" class="headerlink" title="retrieve"></a>retrieve</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$student = Student::model() -&gt; find(<span class="string">'id=:id'</span>, <span class="keyword">array</span>(<span class="string">':id'</span> =&gt; $id));</span><br><span class="line">$student = Student::model() -&gt; find(<span class="keyword">array</span>(</span><br><span class="line">    <span class="string">'condition'</span> =&gt; <span class="string">'id=:id'</span>,</span><br><span class="line">    <span class="string">'param'</span> =&gt; <span class="keyword">array</span>(<span class="string">':id'</span> =&gt; $id),</span><br><span class="line">))</span><br><span class="line">$student = Student::model() -&gt; findByPk($id);</span><br><span class="line">$student = Student::model() -&gt; findByAttributes(<span class="keyword">array</span>(<span class="string">'name'</span> =&gt; <span class="string">'yanshi'</span>));</span><br><span class="line">$student = Student::model()</span><br><span class="line">    -&gt; findBySql(<span class="string">'SELECT name FROM students WHERE id=:id'</span>, <span class="keyword">array</span>(<span class="string">':id'</span> =&gt; $id));</span><br><span class="line"><span class="comment">// find would return null if not found</span></span><br><span class="line"><span class="comment">// findAll would return an empty array if not found</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$count = Student::model() -&gt; count(<span class="string">'name=:name'</span>, <span class="keyword">array</span>(<span class="string">':name'</span> =&gt; <span class="string">'yanshi'</span>));</span><br><span class="line">$count = Student::model()</span><br><span class="line">    -&gt; countBySql(<span class="string">'SELECT count(*) FROM students WHERE name=:name'</span>, <span class="keyword">array</span>(<span class="string">':name'</span> =&gt; <span class="string">'yanshi'</span>));</span><br><span class="line">$exists = $students -&gt; exists(<span class="string">'name=:name'</span>, <span class="keyword">array</span>(<span class="string">':name'</span> =&gt; <span class="string">'yanshi'</span>));</span><br></pre></td></tr></table></figure>
+
+<h5 id="update"><a href="#update" class="headerlink" title="update"></a>update</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$student = Student::model() -&gt; findByPk(<span class="number">0</span>);</span><br><span class="line">$student -&gt; name = <span class="string">'fanxue'</span>;</span><br><span class="line">$student -&gt; save();</span><br></pre></td></tr></table></figure>
+
+<h5 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$student -&gt; delete();</span><br></pre></td></tr></table></figure>
+
+<h5 id="join-1"><a href="#join-1" class="headerlink" title="join"></a>join</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$papers = Paper::model() -&gt; findAll(<span class="keyword">array</span>(</span><br><span class="line">    <span class="string">'condition'</span> =&gt; <span class="string">'author.id=:id'</span>,</span><br><span class="line">    <span class="string">'param'</span> =&gt; <span class="keyword">array</span>(<span class="string">':id'</span> =&gt; $id),</span><br><span class="line">    <span class="string">'with'</span> =&gt; <span class="keyword">array</span>(<span class="string">'author'</span>),</span><br><span class="line">));</span><br></pre></td></tr></table></figure>
+
+
+
+<h5 id="区别bindParam，bindValue，bindValues"><a href="#区别bindParam，bindValue，bindValues" class="headerlink" title="区别bindParam，bindValue，bindValues"></a>区别bindParam，bindValue，bindValues</h5><ul>
+<li>bindParam 绑定变量的引用</li>
+<li>bindValue 绑定变量的值或者常量值</li>
+<li>bindValues 绑定多个值</li>
+</ul>
+<h5 id="AR调用save具体对应哪些操作"><a href="#AR调用save具体对应哪些操作" class="headerlink" title="AR调用save具体对应哪些操作"></a>AR调用save具体对应哪些操作</h5><ul>
+<li>$model 由 new 创建，执行 INSERT</li>
+<li>$model 由 find 返回，执行 UPDATE</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$model -&gt; save(<span class="keyword">true</span>, $attributes); <span class="comment">// attributes need to be saved</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$model -&gt; updateAll($attributes, $condition, $param);</span><br><span class="line">$model -&gt; updateByPk($pk, $attributes, $condition, $param);</span><br></pre></td></tr></table></figure>
+
+<h5 id="empty-isset各种调用情况的返回值"><a href="#empty-isset各种调用情况的返回值" class="headerlink" title="empty,isset各种调用情况的返回值"></a>empty,isset各种调用情况的返回值</h5><ul>
+<li>empty<ul>
+<li>“”</li>
+<li>0</li>
+<li>0.0</li>
+<li>“0”</li>
+<li>NULL</li>
+<li>FALSE</li>
+<li>array()</li>
+<li>a variable declared, but without a value</li>
+</ul>
+</li>
+<li>isset<ul>
+<li>variable exsits and has value other than NULL</li>
+</ul>
+</li>
+</ul>
+<h5 id="解释Yii的路由解析"><a href="#解释Yii的路由解析" class="headerlink" title="解释Yii的路由解析"></a>解释Yii的路由解析</h5><ul>
+<li><p>showScript: false</p>
+</li>
+<li><p>入口文件添加 .htaccess 配置 Apache</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Options +FollowSymLinks</span><br><span class="line">IndexIgnore *<span class="comment">/*</span></span><br><span class="line"><span class="comment">RewriteEngine on</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># if a directory or a file exists, use it directly</span></span><br><span class="line"><span class="comment">RewriteCond %&#123;REQUEST_FILENAME&#125; !-f</span></span><br><span class="line"><span class="comment">RewriteCond %&#123;REQUEST_FILENAME&#125; !-d</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># otherwise forward it to index.php</span></span><br><span class="line"><span class="comment">RewriteRule . index.php</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5 id="设置header"><a href="#设置header" class="headerlink" title="设置header"></a>设置header</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header(<span class="string">"Access-Control-Allow-Origin: *"</span>);</span><br></pre></td></tr></table></figure>
+
+<h5 id="redirect和forward的区别"><a href="#redirect和forward的区别" class="headerlink" title="redirect和forward的区别"></a>redirect和forward的区别</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">$this</span> -&gt; redirect(<span class="keyword">$this</span> -&gt; createUrl(<span class="string">"$controller/$action"</span>));</span><br><span class="line"><span class="keyword">$this</span> -&gt; forward(<span class="string">"$controller/$action"</span>);</span><br></pre></td></tr></table></figure>
+
+<h5 id="PHP怎么在长时间请求下不断往前端输出"><a href="#PHP怎么在长时间请求下不断往前端输出" class="headerlink" title="PHP怎么在长时间请求下不断往前端输出"></a>PHP怎么在长时间请求下不断往前端输出</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ob_get_level() || ob_start();</span><br><span class="line"><span class="keyword">for</span> ($i = <span class="number">0</span>; $i &lt; <span class="number">5</span>; $i++) &#123;</span><br><span class="line">    <span class="keyword">echo</span> $i . <span class="string">' '</span>;</span><br><span class="line">    ob_flush();</span><br><span class="line">    flush();</span><br><span class="line">    sleep(<span class="number">1</span>);</span><br><span class="line">&#125;  </span><br><span class="line">ob_end_flush();</span><br></pre></td></tr></table></figure>
+
+<h5 id="SESSION锁"><a href="#SESSION锁" class="headerlink" title="SESSION锁"></a>SESSION锁</h5><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">session_write_close();</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="container">
+      
+<section id="comment">
+  <!-- <h1 class="title">Comments</h1> -->
+
+  
+</section>
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+        <div class="nav-previous">
+          <a href="/2018/04/17/常用SQL总结/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> Older Posts</a>
+        </div>
+      
+      
+        <div class="nav-next">
+          <a href="/2017/11/10/HTTP1.0到HTTP2.0的演化/" rel="prev">Newer Posts <span class="meta-arraw meta-arraw-right"></span></a>
+        </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<div class="footer-widgets">
+  <div class="row inside-wrapper">
+    <div class="col-1-2">
+      <aside>
+        <h1 class="widget-title">关于本站</h1>
+        <div class="custom-widget-content">
+          
+          <p>个人记录，学习沉淀，温故知新。 Build My Lifelong System.</p>
+        </div>
+      </aside>
+    </div>
+    <div class="col-1-2">
+      <aside>
+        <h1 class="widget-title">Contact</h1>
+        <div class="widget-text">
+          
+            
+              <a href="https://github.com/zyydeer" class="icon icon-github" target="_blank">github</a>
+            
+              <a href="mailto:18222728313@163.com" class="icon icon-mail" target="_blank">mail</a>
+            
+          
+        </div>
+      </aside>
+    </div>
+
+  </div>
+</div>
+<!-- Footer -->
+
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+
+
+
+</body>
+
+</html>

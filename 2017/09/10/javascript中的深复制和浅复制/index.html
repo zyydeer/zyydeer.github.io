@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!--Description-->
+  
+
+  <!--Author-->
+  
+  <meta name="author" content="Zoey">
+  
+
+  <!--Open Graph Title-->
+  
+      <meta property="og:title" content="javascript中的深复制和浅复制"/>
+  
+  <!--Open Graph Description-->
+  
+  <!--Open Graph Site Name-->
+  <meta property="og:site_name" content="Zoey&#39;s -个人记录&amp;学习沉淀"/>
+  <!--Type page-->
+  
+      <meta property="og:type" content="article" />
+  
+  <!--Page Cover-->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- Title -->
+  
+  <title>javascript中的深复制和浅复制 - Zoey&#39;s -个人记录&amp;学习沉淀</title>
+
+
+  <link rel="shortcut icon" href="http://www.icosky.com/icon/png/Nature/Solar%20System/Moon.png">
+
+  <!-- Custom CSS/Sass -->
+  <link rel="stylesheet" href="/css/style.css">
+
+  <!----------------------------
+  https://github.com/GallenHu/hexo-theme-Daily
+
+ _____            _   _
+|  __ \          (_) | |
+| |  | |   __ _   _  | |  _   _
+| |  | |  / _` | | | | | | | | |
+| |__| | | (_| | | | | | | |_| |
+|_____/   \__,_| |_| |_|  \__, |
+                          __/ |
+                         |___/
+
+    --------------------------->
+
+<link rel="alternate" href="/atom.xml" title="Zoey's -个人记录&学习沉淀" type="application/atom+xml">
+</head>
+
+
+<body>
+
+  <!-- Nav -->
+  <header class="site-header">
+  <div class="header-inside">
+    <div class="logo">
+      <a href="/" rel="home">
+        
+        <img src="https://i.bmp.ovh/imgs/2019/11/09336435ca42511b.png" alt="Zoey's -个人记录&学习沉淀" height="60">
+        
+      </a>
+    </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse">
+        <ul class="navbar-nav">
+          
+          
+            <li>
+              <a href="/.">
+                
+                  home
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/archives">
+                
+                  archive
+                
+              </a>
+            </li>
+          
+            <li>
+              <a href="/about">
+                
+                  about
+                
+              </a>
+            </li>
+          
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </nav>
+    <div class="button-wrap">
+      <button class="menu-toggle">Primary Menu</button>
+    </div>
+  </div>
+</header>
+
+
+  <!-- Main Content -->
+  <div class="content-area">
+  <div class="post">
+    <!-- Post Content -->
+    <div class="container">
+      <article>
+        <!-- Title date & tags -->
+        <div class="post-header">
+          <h1 class="entry-title">
+            javascript中的深复制和浅复制
+            
+          </h1>
+          <p class="posted-on">
+          2017-09-10
+          </p>
+          <div class="tags-links">
+            
+              
+                <a href="/tags/技术/" rel="tag">
+                  技术
+                </a>
+              
+                <a href="/tags/前端/" rel="tag">
+                  前端
+                </a>
+              
+            
+          </div>
+        </div>
+        <!-- Post Main Content -->
+        <div class="entry-content has_line_number">
+          <p>在明白什么深复制和浅复制之前，首先明确几个概念。</p>
+<h1 id="栈（stack）和堆（heap）"><a href="#栈（stack）和堆（heap）" class="headerlink" title="栈（stack）和堆（heap）"></a>栈（stack）和堆（heap）</h1><p><strong>栈</strong>上的空间是自动分配自动回收的，所以栈上的数据的生存周期只是在函数的运行过程中，运行后就释放掉，不可以再访问。</p>
+<p><strong>堆</strong>则是程序员根据需要自己申请的空间，大小不定也不会自动释放。只要程序员不释放空间，就一直可以访问到，一旦忘记释放会造成内存泄露。</p>
+<h1 id="基本类型和引用类型"><a href="#基本类型和引用类型" class="headerlink" title="基本类型和引用类型"></a>基本类型和引用类型</h1><p><strong>基本类型</strong>：存放在栈内存中的简单数据段，数据大小确定，内存空间大小可以分配。基本数据类型(null,undefined,string,number和boolean)是直接按值存放的，所以可以直接访问。</p>
+<p><strong>引用类型</strong>：存放在堆内存中的对象，变量实际保存的是一个指针，这个指针指向另一个位置。每个空间大小不一样。<br>当我们需要访问引用类型（如对象，数组，函数等）的值时，首先从栈中获得该对象的地址指针，然后再从堆内存中取得所需的数据。</p>
+<h1 id="浅复制-vs-深复制"><a href="#浅复制-vs-深复制" class="headerlink" title="浅复制 vs 深复制"></a>浅复制 vs 深复制</h1><p>浅复制和深复制都可以实现在已有对象的基础上再生一份的作用，但是对象的实例是存储在堆内存中然后通过一个引用值去操作对象，由此复制的时候就存在两种情况了：复制引用和复制实例，这也是浅复制和深复制的区别所在。</p>
+<p><strong>浅复制</strong>：浅复制是复制引用，复制后的引用都是指向同一个对象的实例，彼此之间的操作会<strong>互相影响</strong>。</p>
+<p><strong>深复制</strong>：深复制不是简单的复制引用，而是在<strong>堆中重新分配内存</strong>，并且把源对象实例的所有属性都进行新建复制，以保证深复制的对象的引用图不包含任何原有对象或对象图上的任何对象，复制后的对象与原来的对象是完全隔离的。</p>
+<h1 id="浅复制"><a href="#浅复制" class="headerlink" title="浅复制"></a>浅复制</h1><h2 id="Array的slice和concat方法"><a href="#Array的slice和concat方法" class="headerlink" title="Array的slice和concat方法"></a>Array的slice和concat方法</h2><p>Array的slice和concat方法都会返回一个新的数组实例，但是这两个方法对于数组中的对象元素却没有执行深复制，而只是复制了引用的浅复制，通过以下代码进行理解：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var array = [1,2,3];</span><br><span class="line">var array_shallow = array;</span><br><span class="line">var array_concat = array.concat();</span><br><span class="line">var array_slice = array.slice(0);</span><br><span class="line">console.log(array === array_shallow);   //true</span><br><span class="line">console.log(array === array_slice);     //false</span><br><span class="line">console.log(array === array_concat);    //false</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，concat和slice返回的不同的数组实例，这与直接的引用复制是不同的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var array = [1, [1,2,3], &#123;name:&quot;array&quot;&#125;];</span><br><span class="line">var array_concat = array.concat();</span><br><span class="line">var array_slice = array.slice(0);</span><br><span class="line">//改变array_concat中数组元素的值</span><br><span class="line">array_concat[1][0] = 5;</span><br><span class="line">console.log(array[1]);    //[5,2,3]</span><br><span class="line">console.log(array_slice[1]);  //[5,2,3]</span><br><span class="line">//改变array_slice中对象元素的值</span><br><span class="line">array_slice[2].name = &quot;array_slice&quot;;</span><br><span class="line">console.log(array[2].name);   //array_slice</span><br><span class="line">console.log(array_concat[2].name); //array_slice</span><br></pre></td></tr></table></figure>
+<p>通过代码的输出可以看出concat和slice并不是真正的深复制，数组中的对象元素(Object,Array等)只是复制了引用。</p>
+<h1 id="深复制"><a href="#深复制" class="headerlink" title="深复制"></a>深复制</h1><h2 id="JSON对象的parse和stringify"><a href="#JSON对象的parse和stringify" class="headerlink" title="JSON对象的parse和stringify"></a>JSON对象的parse和stringify</h2><p>JSON对象parse方法可以将JSON字符串反序列化成JS对象，stringify方法可以将JS对象序列化成JSON字符串，借助这两个方法，也可以实现对象的深复制。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var source = &#123;</span><br><span class="line">    name:&quot;source&quot;,</span><br><span class="line">    child:&#123;</span><br><span class="line">        name:&quot;child&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var target = JSON.parse(JSON.stringify(source));</span><br><span class="line">//改变target的name属性</span><br><span class="line">target.name = &quot;target&quot;;</span><br><span class="line">console.log(source.name);   //source</span><br><span class="line">console.log(target.name);   //target</span><br><span class="line">//改变target的child</span><br><span class="line">target.child.name = &quot;target child&quot;;</span><br><span class="line">console.log(source.child.name);  //child</span><br><span class="line">console.log(target.child.name);  //target child</span><br></pre></td></tr></table></figure>
+<p>从代码的输出可以看出，复制后的target与source是完全隔离的，二者不会相互影响。</p>
+<p>这个方法使用较为简单，可以满足基本的深复制需求，而且能够处理JSON格式能表示的所有数据类型，但是对于正则表达式类型、函数类型等无法进行深复制(而且会直接丢失相应的值)，同时如果对象中存在循环引用的情况也无法正确处理。</p>
+<h2 id="自己实现一个深复制"><a href="#自己实现一个深复制" class="headerlink" title="自己实现一个深复制"></a>自己实现一个深复制</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">function getType(obj) &#123;</span><br><span class="line">      return Object.prototype.toString.call(obj).slice(8,-1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function deepClone(obj)&#123;</span><br><span class="line">    var type = getType(obj);</span><br><span class="line">    var result;</span><br><span class="line">    if (type === &quot;Array&quot;) &#123;</span><br><span class="line">          result = [];</span><br><span class="line">    &#125;else if(type === &quot;Object&quot;)&#123;</span><br><span class="line">          result = &#123;&#125;;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        //除了数组和对象，其他基本类型的数据都可以通过简单赋值进行克隆。</span><br><span class="line">        return obj;</span><br><span class="line">    &#125;;</span><br><span class="line">    //对象属性的遍历</span><br><span class="line">    for (var key in obj) &#123;</span><br><span class="line">        //继续判断属性的数据类型</span><br><span class="line">        if (getType(obj[key]) == &quot;Object&quot; || getType(obj[key])==&quot;Array&quot;) &#123;</span><br><span class="line">             //如果属性值是对象,递归调用</span><br><span class="line">             result[key] = deepClone(obj[key]);</span><br><span class="line">        &#125; else&#123;</span><br><span class="line">            //如果属性都是简单的数据段，直接赋值</span><br><span class="line">           result[key] = obj[key];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        </div>
+      </article>
+    </div>
+    <!-- Comments -->
+    <div class="container">
+      
+<section id="comment">
+  <!-- <h1 class="title">Comments</h1> -->
+
+  
+</section>
+
+
+    </div>
+    <!-- Pre or Next -->
+    <div class="nav-links">
+      
+        <div class="nav-previous">
+          <a href="/2017/09/28/box-shadow属性探秘/" rel="prev"><span class="meta-arraw meta-arraw-left"></span> Older Posts</a>
+        </div>
+      
+      
+        <div class="nav-next">
+          <a href="/2017/09/10/学习flex布局/" rel="prev">Newer Posts <span class="meta-arraw meta-arraw-right"></span></a>
+        </div>
+      
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- Footer -->
+  <!-- Footer-widgets -->
+<div class="footer-widgets">
+  <div class="row inside-wrapper">
+    <div class="col-1-2">
+      <aside>
+        <h1 class="widget-title">关于本站</h1>
+        <div class="custom-widget-content">
+          
+          <p>个人记录，学习沉淀，温故知新。 Build My Lifelong System.</p>
+        </div>
+      </aside>
+    </div>
+    <div class="col-1-2">
+      <aside>
+        <h1 class="widget-title">Contact</h1>
+        <div class="widget-text">
+          
+            
+              <a href="https://github.com/zyydeer" class="icon icon-github" target="_blank">github</a>
+            
+              <a href="mailto:18222728313@163.com" class="icon icon-mail" target="_blank">mail</a>
+            
+          
+        </div>
+      </aside>
+    </div>
+
+  </div>
+</div>
+<!-- Footer -->
+
+
+
+  <!-- After footer scripts -->
+  <!-- scripts -->
+<script src="/js/app.js"></script>
+
+
+
+
+
+</body>
+
+</html>
